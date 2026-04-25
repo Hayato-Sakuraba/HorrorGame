@@ -3,17 +3,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float walkSpeed = 3f;
+    [SerializeField] private float dashSpeed = 7f;
 
     private Rigidbody rb;
-    private Vector3 moveInput;
+    private Vector2 moveInput;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Send Messages で呼ばれる関数
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -21,11 +21,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 forward = transform.forward;    // プレイヤーの前
-        Vector3 right = transform.right;   // プレイヤーの右
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
 
         Vector3 move = (forward * moveInput.y + right * moveInput.x).normalized;
 
-        rb.linearVelocity = move * moveSpeed;
+        bool dashKey = Keyboard.current.leftShiftKey.isPressed;
+
+        float speed = dashKey ? dashSpeed : walkSpeed;
+
+        rb.linearVelocity = move * speed;
     }
 }

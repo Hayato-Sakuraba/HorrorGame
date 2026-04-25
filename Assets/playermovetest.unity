@@ -417,7 +417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f05b76e26eb34f4e9cf4d2b12d0014a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  moveSpeed: 5
+  walkSpeed: 5
+  dashSpeed: 9
 --- !u!23 &1833613276
 MeshRenderer:
   m_ObjectHideFlags: 0
