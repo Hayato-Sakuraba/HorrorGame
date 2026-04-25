@@ -15,9 +15,6 @@ public class FadeManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-        if (fadeCanvas == null)
-            fadeCanvas = GetComponentInChildren<CanvasGroup>();
-        DontDestroyOnLoad(gameObject);
     }
 
     public void FadeAndLoadScene(string sceneName)

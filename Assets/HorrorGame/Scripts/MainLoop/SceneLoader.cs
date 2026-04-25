@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadScene1()
     {
-        FadeManager.Instance.FadeAndLoadScene(sceneName1);
+        FadeManager.Instance.FadeAndLoadScene(sceneName1); 
     }
 
     public void LoadScene2()
