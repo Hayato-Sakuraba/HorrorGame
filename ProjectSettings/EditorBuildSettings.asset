@@ -8,5 +8,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/HorrorGame/Scenes/Main.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/HorrorGame/Scenes/Clear.unity
+    guid: 84e1c36814cb5d3459305d49889662f4
+  - enabled: 1
+    path: Assets/HorrorGame/Scenes/Title.unity
+    guid: 6faf9c529f166b94689fb03ec826ab38
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
