@@ -8,7 +8,7 @@ public class LitScript : MonoBehaviour
 
     //SetRoomVisibility(0, true);これで表示
     //SetRoomVisibility(0, false);これで非表示
-        public void SetRoomVisibility(int index, bool isVisible)
+        public void SetRoomVisibility(int index,bool isVisiable)
     {
         
         if (index < 0 || index >= targetRooms.Length)
@@ -24,6 +24,6 @@ public class LitScript : MonoBehaviour
         }
 
         // 表示・非表示の切り替え
-        targetRooms[index].SetActive(isVisible);
+        targetRooms[index].SetActive(isVisiable);
     }
 }
