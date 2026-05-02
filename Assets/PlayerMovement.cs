@@ -27,9 +27,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = (forward * moveInput.y + right * moveInput.x).normalized;
 
         bool dashKey = Keyboard.current.leftShiftKey.isPressed;
-
+        IsDashing=dashKey;
         float speed = dashKey ? dashSpeed : walkSpeed;
 
         rb.linearVelocity = move * speed;
     }
+    public bool IsDashing { get; private set; }
 }
