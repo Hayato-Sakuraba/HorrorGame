@@ -28,7 +28,11 @@
     },
     "com.unity.2d.common": {
       "version": "13.0.1",
+<<<<<<< Updated upstream
       "depth": 2,
+=======
+      "depth": 1,
+>>>>>>> Stashed changes
       "source": "registry",
       "dependencies": {
         "com.unity.burst": "1.8.4",
@@ -136,7 +140,11 @@
     },
     "com.unity.collections": {
       "version": "6.4.0",
+<<<<<<< Updated upstream
       "depth": 2,
+=======
+      "depth": 0,
+>>>>>>> Stashed changes
       "source": "builtin",
       "dependencies": {
         "com.unity.burst": "1.8.23",

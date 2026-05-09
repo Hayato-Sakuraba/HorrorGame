@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class ViewMesh : MonoBehaviour
 {
-	public float viewAngle = 60f;
+	public float viewAngle = 60f;//a
 	public float viewDistance = 7f;
 	public int resolution = 30;
 

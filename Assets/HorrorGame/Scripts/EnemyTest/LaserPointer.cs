@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class LaserPointer : MonoBehaviour
 {
-	public Transform target;
+	public Transform target;//a
 	public float maxDistance = 10f;
 
 	public LayerMask hitMask; // ← Player + Wall 両方入れる！
