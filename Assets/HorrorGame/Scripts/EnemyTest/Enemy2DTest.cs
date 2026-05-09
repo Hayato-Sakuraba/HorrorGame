@@ -5,7 +5,6 @@ public class Enemy2DTest : MonoBehaviour
 	public Transform[] waypoints; // 巡回ポイント
 	public Transform player;
 
-	public GameObject laserPointer;
 
 	public float patrolSpeed = 2f; // 巡回中速度
 	public float chaseSpeed = 4f;// 追跡中速度
@@ -30,7 +29,7 @@ public class Enemy2DTest : MonoBehaviour
 	void Start()
 	{
 		currentState = State.Patrol;
-		laserPointer.SetActive(false);
+
 	}
 
 	// プレイヤー視認
@@ -104,7 +103,6 @@ public class Enemy2DTest : MonoBehaviour
 			// タイマーリセット
 			lostTimer = loseTime;
 
-			laserPointer.SetActive(true);
 		}
 		else
 		{
@@ -114,13 +112,11 @@ public class Enemy2DTest : MonoBehaviour
 			{
 				currentState = State.Chase;
 
-				laserPointer.SetActive(true);
 			}
 			else
 			{
 				currentState = State.Patrol;
 
-				laserPointer.SetActive(false);
 			}
 		}
 

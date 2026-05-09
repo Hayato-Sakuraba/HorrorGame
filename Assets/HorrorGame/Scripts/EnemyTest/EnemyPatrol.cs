@@ -30,6 +30,13 @@ public class EnemyPatrol : MonoBehaviour
 	{
 		agent = GetComponent<NavMeshAgent>();
 
+		NavMeshHit hit;
+
+		if (NavMesh.SamplePosition(transform.position, out hit, 5f, NavMesh.AllAreas))
+		{
+			agent.Warp(hit.position);
+		}
+
 		currentState = State.Patrol;
 		agent.speed = patrolSpeed;
 
