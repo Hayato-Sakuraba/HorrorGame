@@ -5,7 +5,7 @@ public class EnemyPatrol : MonoBehaviour
 {
 	public Transform[] patrolPoints; // 巡回ポイント
 	public Transform target;         // プレイヤー
-	public LaserPointer laser;
+	public LaserPointer laser;       // レーザーポインター
 
 	public float chaseDistance = 5f;
 
