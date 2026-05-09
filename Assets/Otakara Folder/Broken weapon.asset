@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e27db943dbfcc94ea57aaa28508cc21, type: 3}
   m_Name: Broken weapon
   m_EditorClassIdentifier: Assembly-CSharp::Otakara
-  price: 70
+  price: 71
   guram: 4

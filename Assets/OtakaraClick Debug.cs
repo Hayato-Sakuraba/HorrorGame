@@ -16,6 +16,7 @@ public class OtakaraClick : MonoBehaviour
         else
         {
             // 容量オーバー時
+
             Debug.Log("容量オーバーで拾えない");
         }
     }

@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
 //クレジット
     public CreditManager creditManager;
 
+
     public bool AddItem(Otakara item)
     {
         if (currentSize + item.guram > maxSize)

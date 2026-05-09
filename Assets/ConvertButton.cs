@@ -7,5 +7,6 @@ public class ConvertButton : MonoBehaviour
     public void OnClickConvert()
     {
         inventory.ConvertToCredit();
+
     }
 }

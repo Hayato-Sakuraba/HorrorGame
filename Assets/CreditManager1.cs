@@ -52,6 +52,7 @@ public class CreditManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Credit", currentCredit);
 
+
         PlayerPrefs.Save();
     }
 }
