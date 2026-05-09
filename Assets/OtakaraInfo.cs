@@ -2,6 +2,6 @@ using UnityEngine;
 
 public class OtakaraInfo : MonoBehaviour
 {
-    [SerializeField] Otakara otakara;
+    [SerializeField] public Otakara otakara;
 
 }
