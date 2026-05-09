@@ -10,6 +10,7 @@ public class CreditResetDebug : MonoBehaviour
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             creditManager.ResetCredit();
+
         }
     }
 }

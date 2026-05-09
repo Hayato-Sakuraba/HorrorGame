@@ -10,6 +10,7 @@ public class OtakaraObject : MonoBehaviour
         if (inventory.AddItem(data))
         {
             gameObject.SetActive(false);
+
             return true;
         }
 

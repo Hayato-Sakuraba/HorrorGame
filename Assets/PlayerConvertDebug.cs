@@ -10,6 +10,7 @@ public class PlayerConvertDebug : MonoBehaviour
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             inventory.ConvertToCredit();
+
         }
     }
 }
