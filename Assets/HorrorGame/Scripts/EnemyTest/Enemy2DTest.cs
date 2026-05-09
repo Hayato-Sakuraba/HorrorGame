@@ -4,7 +4,7 @@ public class Enemy2DTest : MonoBehaviour
 {
 	public Transform[] waypoints; // 巡回ポイント
 	public Transform player;
-
+	//a
 
 	public float patrolSpeed = 2f; // 巡回中速度
 	public float chaseSpeed = 4f;// 追跡中速度
