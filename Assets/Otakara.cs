@@ -4,4 +4,5 @@ using UnityEngine;
 public class Otakara : ScriptableObject
 {
     [SerializeField] public int price;
+    [SerializeField] public int guram;
 }

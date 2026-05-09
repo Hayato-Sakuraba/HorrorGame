@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e27db943dbfcc94ea57aaa28508cc21, type: 3}
   m_Name: Dirty canned food
   m_EditorClassIdentifier: Assembly-CSharp::Otakara
-  price: 150
+  price: 25
+  guram: 2
