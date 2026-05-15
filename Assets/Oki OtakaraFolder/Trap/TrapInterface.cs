@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface TrapInterface
 {
-    void ActiveTrap();
+    void ActiveTrap(Transform playerTransform);
 }

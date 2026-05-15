@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class poison : MonoBehaviour,TrapInterface
 {
-    public void ActiveTrap()
+    public void ActiveTrap(Transform playerTransform)
     {
 
     }

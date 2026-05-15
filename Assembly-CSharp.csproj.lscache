@@ -50,20 +50,17 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 /warnaserror+:NU1605
 
 [sourceFiles]
+Assets/HorrorGame/Scripts/EnemyTest/
+ Enemy2DTest.cs
+ EnemyPatrol.cs
+ EnemyTrap.cs
+ LaserPointer.cs
+ ViewMesh.cs
+Assets/HorrorGame/Scripts/MainLoop/
+ FadeManager.cs
+ SceneLoader.cs
 Assets/
- ConvertButton.cs
- CreditManager1.cs
- CreditResetDebug.cs
- HorrorGame/Scripts/EnemyTest/
-  EnemyPatrol.cs
-  EnemyTrap.cs
-  LaserPointer.cs
-  ViewMesh.cs
- HorrorGame/Scripts/MainLoop/
-  FadeManager.cs
-  SceneLoader.cs
  HorrorGame/Scripts/Player/PlayerItemPickUp.cs
- Inventory.cs
  InventoryScripts/
   InventoryManager.cs
   SellPoint.cs
@@ -72,12 +69,26 @@ Assets/
  Map/MapScripts/
   LitScript.cs
   WarpPoint.cs
- Otakara.cs
- OtakaraClick Debug.cs
- OtakaraInfo.cs
- OtakaraObject.cs
+ Oki OtakaraFolder/
+  ConvertButton.cs
+  CreditManager1.cs
+  CreditResetDebug.cs
+  Inventory.cs
+  Otakara.cs
+  OtakaraClick Debug.cs
+  OtakaraInfo.cs
+  OtakaraObject.cs
+  PlayerConvertDebug.cs
+  Trap/
+   DebugMove.cs
+   OtonarashiTrap.cs
+   ParalysisTrap.cs
+   PlayerHealth.cs
+   Poison.cs
+   Radioactivity.cs
+   TrapEvent.cs
+   TrapInterface.cs
  PlayerActionsIA.cs
- PlayerConvertDebug.cs
  PlayerMovement.cs
  TutorialInfo/Scripts/Readme.cs
 Temp/obj/Assembly-CSharp/.NETStandard,Version=v2.1.AssemblyAttributes.cs
