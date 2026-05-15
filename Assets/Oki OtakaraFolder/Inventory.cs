@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(Otakara item)
     {
+        //items[Random.Range(0, items.Count)].;
         if (currentSize + item.guram > maxSize)
         {
             Debug.Log("容量オーバー！");
