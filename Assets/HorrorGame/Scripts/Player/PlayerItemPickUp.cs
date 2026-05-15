@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,12 +14,9 @@ public class PlayerItemPickUp : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Interact: " + Interact);
         if (Interact && itemInRange)
         {
             Otakara _otakara = Item.GetComponent<OtakaraInfo>().otakara;
-            Debug.Log("Item Layer");
-
             if (_otakara != null)
             {
                 inventory.AddItem(_otakara);
