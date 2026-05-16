@@ -4,7 +4,6 @@ public class Enemy2DTest : MonoBehaviour
 {
 	public Transform[] waypoints; // 巡回ポイント
 	public Transform player;
-	//a
 
 	public float patrolSpeed = 2f; // 巡回中速度
 	public float chaseSpeed = 4f;// 追跡中速度
@@ -46,20 +45,20 @@ public class Enemy2DTest : MonoBehaviour
 
 		float distance = direction.magnitude;
 
-		// ① 距離チェック
+		// 距離チェック
 		if (distance > viewDistance)
 			return false;
 
 		direction.Normalize();
 
-		// ② 角度チェック
+		// 角度チェック
 		float angle = Vector3.Angle(transform.up, direction);
 
 		// 全角度式
 		if (angle > viewAngle / 2f)
 			return false;
 
-		// ③ 壁チェック
+		// 壁チェック
 		RaycastHit hit;
 
 		if (Physics.Raycast(
@@ -120,7 +119,6 @@ public class Enemy2DTest : MonoBehaviour
 			}
 		}
 
-		// ← これ超重要
 		if (currentState == State.Patrol)
 		{
 			Patrol();
@@ -161,29 +159,69 @@ public class Enemy2DTest : MonoBehaviour
 		Vector3 targetPos = lastKnownPosition;
 		Move(targetPos, chaseSpeed);
 	}
+
+	public LayerMask wallMask;
+	public float avoidDistance = 0.5f;
 	void Move(Vector3 target, float speed)
 	{
-		// Zは固定（2D想定）
 		target.z = transform.position.z;
 
-		transform.position = Vector3.MoveTowards(
-		 transform.position,
-		 target,
-		 speed * Time.deltaTime
-		);
-		Vector3 dir = target - transform.position;
+		Vector3 dir = (target - transform.position).normalized;
 
-		// 2D用の回転（Z軸回転）
-		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-		if (dir.magnitude > 0.2f)
+		// 前方壁チェック
+		RaycastHit2D hit = Physics2D.Raycast(
+			transform.position,
+			dir,
+			avoidDistance,
+			wallMask
+		);
+
+		// 壁がある
+		if (hit)
 		{
-			Quaternion targetRotation = Quaternion.Euler(0, 0, angle);
-			transform.rotation = Quaternion.Slerp(
-			  transform.rotation,
-			  targetRotation,
-			  5f * Time.deltaTime
+			// 左右回避方向
+			Vector3 left = Quaternion.Euler(0, 0, 90) * dir;
+			Vector3 right = Quaternion.Euler(0, 0, -90) * dir;
+
+			// 左チェック
+			bool leftBlocked = Physics2D.Raycast(
+				transform.position,
+				left,
+				avoidDistance,
+				wallMask
 			);
+
+			// 右チェック
+			bool rightBlocked = Physics2D.Raycast(
+				transform.position,
+				right,
+				avoidDistance,
+				wallMask
+			);
+
+			// 空いてる方向へ
+			if (!leftBlocked)
+				dir = left;
+			else if (!rightBlocked)
+				dir = right;
+			else
+				return;
 		}
+
+		transform.position += dir * speed * Time.deltaTime;
+
+		// 回転
+		float angle =
+			Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+
+		Quaternion targetRotation =
+			Quaternion.Euler(0, 0, angle);
+
+		transform.rotation = Quaternion.Slerp(
+			transform.rotation,
+			targetRotation,
+			5f * Time.deltaTime
+		);
 	}
 	void OnDrawGizmos()
 	{
@@ -193,8 +231,11 @@ public class Enemy2DTest : MonoBehaviour
 
 		Gizmos.color = Color.yellow;
 
-		Vector3 left = Quaternion.Euler(0, 0, viewAngle) * forward;
-		Vector3 right = Quaternion.Euler(0, 0, -viewAngle) * forward;
+		Vector3 left =
+			Quaternion.Euler(0, 0, viewAngle / 2f) * forward;
+
+		Vector3 right =
+			Quaternion.Euler(0, 0, -viewAngle / 2f) * forward;
 
 		Gizmos.DrawLine(origin, origin + left * viewDistance);
 		Gizmos.DrawLine(origin, origin + right * viewDistance);
