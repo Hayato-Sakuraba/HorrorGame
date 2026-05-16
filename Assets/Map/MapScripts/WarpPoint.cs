@@ -1,58 +1,49 @@
 using UnityEngine;
 
-public class WarpPoint : MonoBehaviour
+// 必須コンポーネントの指定。アタッチ忘れを防ぐ
+[RequireComponent(typeof(Collider2D))]
+public class WarpZone : MonoBehaviour
 {
-    [Header("ワープ地点（空のオブジェクトでOK）")]
-    [SerializeField] private Transform pointA;
-    [SerializeField] private Transform pointB;
+    [Header("ワープ先")]
+    [SerializeField] private Transform destination;
 
-    [Header("ワープが発動する範囲（半径）")]
-    [SerializeField] private float triggerRadius = 0.5f;
+    // ワープを受け付ける状態かどうかのフラグ
+    private bool isReadyToWarp = true;
 
-    // 無限ループ防止用のクールダウンタイマー
-    private float warpCooldown = 5f;
-    private float lastWarpTime = -10f;
-
-    private void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // どちらかの地点が設定されていない場合はエラーを防ぐ
-        if (pointA == null || pointB == null) return;
+        // ワープ準備ができていない場合は弾く
+        if (!isReadyToWarp) return;
 
-        // ワープ直後のクールダウン中は判定をスキップ（無限ループ防止）
-        if (Time.time - lastWarpTime < warpCooldown) return;
-
-        // A地点にプレイヤーがいるかチェック
-        Collider2D hitA = Physics2D.OverlapCircle(pointA.position, triggerRadius);
-        if (hitA != null && hitA.CompareTag("Player"))
+        // 接触したのがプレイヤーであればワープ実行
+        if (other.CompareTag("Player"))
         {
-            WarpPlayer(hitA.transform, pointB);
-            return; // 同時発動を防ぐため、ここで処理を終了
-        }
+            // 1. ワープ先の「ワープ受付」を一時的に無効化する（無限ループ防止）
+            WarpZone destZone = destination.GetComponent<WarpZone>();
+            if (destZone != null)
+            {
+                destZone.DisableWarpTemporarily();
+            }
 
-        // B地点にプレイヤーがいるかチェック
-        Collider2D hitB = Physics2D.OverlapCircle(pointB.position, triggerRadius);
-        if (hitB != null && hitB.CompareTag("Player"))
-        {
-            WarpPlayer(hitB.transform, pointA);
+            // 2. プレイヤーを移動させる
+            other.transform.position = destination.position;
+            
+            Debug.Log($"{destination.name} へワープしました！");
         }
     }
 
-    private void WarpPlayer(Transform playerTransform, Transform destination)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        // プレイヤーの位置を目的地に移動
-        playerTransform.position = destination.position;
-        
-        // ワープした時間を記録してクールダウン開始
-        lastWarpTime = Time.time;
-        
-        Debug.Log($"{destination.gameObject.name} へワープしました！");
+        // プレイヤーが完全に範囲から出たタイミングでワープ受付を再開
+        if (other.CompareTag("Player"))
+        {
+            isReadyToWarp = true;
+        }
     }
 
-    // 【おまけ】Unityエディタ上でワープの判定範囲を「緑色の円」で可視化する機能
-    private void OnDrawGizmos()
+    // 外部（ワープ元）から呼ばれる無効化処理
+    public void DisableWarpTemporarily()
     {
-        Gizmos.color = new Color(0, 1, 0, 0.4f); // 半透明の緑
-        if (pointA != null) Gizmos.DrawSphere(pointA.position, triggerRadius);
-        if (pointB != null) Gizmos.DrawSphere(pointB.position, triggerRadius);
+        isReadyToWarp = false;
     }
 }
