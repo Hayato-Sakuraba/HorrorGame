@@ -1,31 +1,49 @@
 using UnityEngine;
 
-public class WarpPoint : MonoBehaviour
+// 必須コンポーネントの指定。アタッチ忘れを防ぐ
+[RequireComponent(typeof(Collider2D))]
+public class WarpZone : MonoBehaviour
 {
-    [Header("ワープ先の地点")]
-    [SerializeField] private Transform destination; 
+    [Header("ワープ先")]
+    [SerializeField] private Transform destination;
 
-    // プレイヤーがこのオブジェクトの範囲に入った瞬間に実行
-    private void OnTriggerEnter2D(Collider2D collision)
+    // ワープを受け付ける状態かどうかのフラグ
+    private bool isReadyToWarp = true;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // 衝突した相手がプレイヤーかどうかをタグで判定
-        if (collision.CompareTag("Player"))
+        // ワープ準備ができていない場合は弾く
+        if (!isReadyToWarp) return;
+
+        // 接触したのがプレイヤーであればワープ実行
+        if (other.CompareTag("Player"))
         {
-            Warp(collision.transform);
+            // 1. ワープ先の「ワープ受付」を一時的に無効化する（無限ループ防止）
+            WarpZone destZone = destination.GetComponent<WarpZone>();
+            if (destZone != null)
+            {
+                destZone.DisableWarpTemporarily();
+            }
+
+            // 2. プレイヤーを移動させる
+            other.transform.position = destination.position;
+            
+            Debug.Log($"{destination.name} へワープしました！");
         }
     }
 
-    private void Warp(Transform playerTransform)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (destination == null)
+        // プレイヤーが完全に範囲から出たタイミングでワープ受付を再開
+        if (other.CompareTag("Player"))
         {
-            Debug.LogWarning("ワープ先が設定されていません！");
-            return;
+            isReadyToWarp = true;
         }
+    }
 
-        // プレイヤーの位置をワープ先の座標に上書き
-        playerTransform.position = destination.position;
-        
-        Debug.Log("Warped to: " + destination.name);
+    // 外部（ワープ元）から呼ばれる無効化処理
+    public void DisableWarpTemporarily()
+    {
+        isReadyToWarp = false;
     }
 }
