@@ -21,17 +21,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
-        Vector3 forward = transform.forward;
-        Vector3 right = transform.right;
+{
+    Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
 
-        Vector3 move = (forward * moveInput.y + right * moveInput.x).normalized;
+    bool dashKey = Keyboard.current.leftShiftKey.isPressed;
+    IsDashing = dashKey;
 
-        bool dashKey = Keyboard.current.leftShiftKey.isPressed;
-        IsDashing=dashKey;
-        float speed = dashKey ? dashSpeed : walkSpeed;
+    float speed = dashKey ? dashSpeed : walkSpeed;
 
-        rb.linearVelocity = move * speed;
-    }
+    rb.linearVelocity = move.normalized * speed;
+}
     public bool IsDashing { get; private set; }
 }

@@ -295,13 +295,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298181122}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5843764, y: -0, z: -0, w: 0.8114827}
-  m_LocalPosition: {x: -4.12, y: 15.47, z: -6.59}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 20, z: -0.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 71.518, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1005621993
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,6 +699,7 @@ GameObject:
   - component: {fileID: 1833613282}
   - component: {fileID: 1833613283}
   - component: {fileID: 1833613284}
+  - component: {fileID: 1833613285}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -729,7 +730,7 @@ Transform:
   m_GameObject: {fileID: 1833613272}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4, y: 0.66, z: -2.8}
+  m_LocalPosition: {x: -0.4, y: 0.766, z: -2.742}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -888,7 +889,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &1833613282
 Animator:
@@ -983,6 +984,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a614b31cc0a5e4c86642eea86f4f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimation
+--- !u!114 &1833613285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833613272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a219e5c2d3cb945ab437fdc6e6c92d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Billboard
 --- !u!1 &1895552028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,7 +1137,7 @@ Transform:
   m_GameObject: {fileID: 2040370062}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
