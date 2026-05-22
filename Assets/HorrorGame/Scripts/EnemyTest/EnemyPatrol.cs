@@ -107,7 +107,7 @@ public class EnemyPatrol : MonoBehaviour
 	{
 		agent.speed = patrolSpeed;
 
-		laser.ShowLaser(false);
+		//laser.ShowLaser(false);
 
 		if (!agent.pathPending && agent.remainingDistance < 0.5f)
 		{
@@ -120,7 +120,7 @@ public class EnemyPatrol : MonoBehaviour
 		agent.speed = chaseSpeed;
 		agent.SetDestination(target.position);
 
-		laser.ShowLaser(true);
+		//laser.ShowLaser(true);
 	}
 
 	void GoToNextPoint()

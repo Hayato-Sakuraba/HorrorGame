@@ -5,7 +5,7 @@ public class Enemy2D : MonoBehaviour
 {
 	[Header("References")]
 	public Transform[] patrolPoints;
-	public Transform target;
+	private Transform target;
 
 	[Header("Movement")]
 	public float walkSpeed = 1.5f;
@@ -22,6 +22,8 @@ public class Enemy2D : MonoBehaviour
 	private float chaseTimer = 0f;
 	private float waitTimer = 0f;
 
+	public LaserPointer laser;
+
 	private NavMeshAgent agent;
 	private int currentPatrolIndex = 0;
 
@@ -29,11 +31,23 @@ public class Enemy2D : MonoBehaviour
 	private State state = State.Patrol;
 	private Vector2 lastMoveDir = Vector2.right; // 初期値は右
 
+	private void OnEnable()
+	{
+		TrapEvent.OtonarashiTrapActivated += GetPlayerPosition;
+	}
+
+	private void OnDisable()
+	{
+		TrapEvent.OtonarashiTrapActivated -= GetPlayerPosition;
+	}
+
 	void Start()
 	{
 		agent = GetComponent<NavMeshAgent>();
 		agent.updateRotation = false;
 		agent.updateUpAxis = false;
+
+		target = GameObject.FindWithTag("Player").transform;  
 
 		agent.speed = walkSpeed;
 		GoToNextPatrolPoint();
@@ -64,6 +78,7 @@ public class Enemy2D : MonoBehaviour
 	// -------------------------
 	void PatrolUpdate(bool canSeePlayer)
 	{
+		laser.SetActive(false);
 		// プレイヤーを見つけたら追跡へ
 		if (canSeePlayer)
 		{
@@ -85,6 +100,7 @@ public class Enemy2D : MonoBehaviour
 	// -------------------------
 	void ChaseUpdate(bool canSeePlayer)
 	{
+		laser.SetActive(canSeePlayer);
 		if (canSeePlayer)
 		{
 			chaseTimer = chaseKeepTime;
@@ -106,6 +122,14 @@ public class Enemy2D : MonoBehaviour
 
 		agent.SetDestination(target.position);
 	}
+
+	private void GetPlayerPosition(Transform playerPos)
+	{
+		target = playerPos;
+		state = State.Chase;
+		agent.SetDestination(target.position);
+	}
+
 	void GoToNearestPatrolPoint()
 	{
 		if (patrolPoints.Length == 0) return;
@@ -129,8 +153,11 @@ public class Enemy2D : MonoBehaviour
 		agent.SetDestination(patrolPoints[currentPatrolIndex].position);
 	}
 
+
+
 	void WaitUpdate()
 	{
+		laser.SetActive(false);
 		waitTimer -= Time.deltaTime;
 
 		if (waitTimer <= 0f)
@@ -148,39 +175,37 @@ public class Enemy2D : MonoBehaviour
 	// -------------------------
 	bool CanSeePlayer()
 	{
+		// ★ target が null の場合は見えていない扱いにする
+		if (target == null)
+			return false;
+
 		// 現在の移動方向（停止中なら lastMoveDir を使う）
 		Vector2 moveDir = agent.velocity.sqrMagnitude > 0.01f
 			? agent.velocity.normalized
 			: lastMoveDir;
 
-		// 最後の向きを更新
 		if (agent.velocity.sqrMagnitude > 0.01f)
 			lastMoveDir = moveDir;
 
-		// プレイヤー方向
 		Vector2 pos = transform.position;
 		Vector2 playerPos = target.position;
 		Vector2 dirToPlayer = (playerPos - pos).normalized;
 
-		// ★ 距離チェック（これが抜けていた）
 		float distanceToPlayer = Vector2.Distance(pos, playerPos);
 		if (distanceToPlayer > viewDistance)
 			return false;
 
-		// 視野角チェック
 		float angle = Vector2.Angle(moveDir, dirToPlayer);
 		if (angle > viewAngle * 0.5f)
 			return false;
 
-		// Raycast で遮蔽物チェック
 		RaycastHit2D hit = Physics2D.Raycast(pos, dirToPlayer, viewDistance, obstacleMask);
-
-		// プレイヤー以外に当たったら見えない
 		if (hit && hit.collider.transform != target)
 			return false;
 
 		return true;
 	}
+
 
 	// -------------------------
 	// パトロール地点へ移動
