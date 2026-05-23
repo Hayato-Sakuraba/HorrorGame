@@ -100,7 +100,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1755131626759343374}
-  - component: {fileID: 8905806287546771770}
   - component: {fileID: 7810871296346528176}
   m_Layer: 0
   m_Name: TestEnemy 1
@@ -127,34 +126,6 @@ Transform:
   - {fileID: 3164293848747948731}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8905806287546771770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862024525184288946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dffe4f721214af44a8bc57b25243ac4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy2D
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  walkSpeed: 1.5
-  runSpeed: 3.5
-  viewDistance: 6
-  viewAngle: 90
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 256
-  chaseKeepTime: 2
-  lostWaitTime: 1
-  spriteRoot: {fileID: 1585332800215313057}
-  laser: {fileID: 25534756388857202}
 --- !u!195 &7810871296346528176
 NavMeshAgent:
   m_ObjectHideFlags: 0
