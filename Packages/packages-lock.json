@@ -28,7 +28,7 @@
     },
     "com.unity.2d.common": {
       "version": "13.0.1",
-      "depth": 0,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.burst": "1.8.4",
@@ -69,7 +69,7 @@
     },
     "com.unity.2d.spriteshape": {
       "version": "14.0.1",
-      "depth": 0,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.2d.common": "13.0.1",
