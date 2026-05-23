@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,6 +22,9 @@ public class Enemy2D : MonoBehaviour
 	public float lostWaitTime = 1.5f; // ← 見失った後の待機時間
 	private float chaseTimer = 0f;
 	private float waitTimer = 0f;
+
+	[Header("Visual")]
+	[SerializeField] private Transform spriteRoot;
 
 	public LaserPointer laser;
 
@@ -71,6 +75,8 @@ public class Enemy2D : MonoBehaviour
 				WaitUpdate();
 				break;
 		}
+
+		UpdateSpriteRotation();
 	}
 
 	// -------------------------
@@ -153,8 +159,6 @@ public class Enemy2D : MonoBehaviour
 		agent.SetDestination(patrolPoints[currentPatrolIndex].position);
 	}
 
-
-
 	void WaitUpdate()
 	{
 		laser.SetActive(false);
@@ -168,6 +172,25 @@ public class Enemy2D : MonoBehaviour
 			// ★ 最寄りのパトロールポイントへ向かう
 			GoToNearestPatrolPoint();
 		}
+	}
+
+	void UpdateSpriteRotation()
+	{
+		if (spriteRoot == null) return;
+
+		// 今の移動方向 or 最後に動いた方向
+		Vector2 moveDir = agent.velocity.sqrMagnitude > 0.01f
+			? agent.velocity.normalized
+			: lastMoveDir;
+
+		if (moveDir.sqrMagnitude < 0.001f)
+			return;
+
+		// 角度を計算（2D なので Z 回転）
+		float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
+
+		// スプライトの前方向が「上」なら +90° 補正
+		spriteRoot.rotation = Quaternion.Euler(0, 0, angle - 90f);
 	}
 
 	// -------------------------
