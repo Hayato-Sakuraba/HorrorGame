@@ -13,7 +13,11 @@ public class WarpZone : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // ワープ準備ができていない場合は弾く
-        if (!isReadyToWarp) return;
+        if (!isReadyToWarp) 
+        {
+            Debug.Log("ワープ準備ができていません。");
+            return;
+        }
 
         // 接触したのがプレイヤーであればワープ実行
         if (other.CompareTag("Player"))
