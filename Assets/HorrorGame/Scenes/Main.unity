@@ -787,6 +787,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: dashScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: dashScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: lanternSprite
+      value: 
+      objectReference: {fileID: 1384111295}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: normalScale.x
+      value: 5.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: normalScale.y
+      value: 5.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: dashPulseAmount
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: scalePulseAmount
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: dashPulseInterval
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: normalPulseAmount
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: scalePulseInterval
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7053391140578872781, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      propertyPath: normalPulseInterval
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8898914652561011260, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -795,10 +839,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5115556169276451393, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2274542001173228716, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 825091708}
     - targetCorrespondingSourceObject: {fileID: 6132935472194531409, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 75271219}
@@ -1174,6 +1222,48 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!1 &825091704 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2274542001173228716, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+  m_PrefabInstance: {fileID: 594299227}
+  m_PrefabAsset: {fileID: 0}
+--- !u!70 &825091708
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825091704}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.08462143, y: -0.05439949}
+  m_Size: {x: 0.66924286, y: 0.891201}
+  m_Direction: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1527,6 +1617,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2342211b132cb0c41b0f0b5afc32f314, type: 3}
+--- !u!4 &1384111295 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1569493952592585985, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+  m_PrefabInstance: {fileID: 594299227}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1457547079
 GameObject:
   m_ObjectHideFlags: 0
