@@ -927,6 +927,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243988064}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &456717672 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1585332800215313057, guid: 9e7cd756745c8da4fa1c65fb92e1814c, type: 3}
+  m_PrefabInstance: {fileID: 1944476927}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &544748567
 GameObject:
   m_ObjectHideFlags: 0
@@ -6274,6 +6279,17 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1515677154 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 25534756388857202, guid: 9e7cd756745c8da4fa1c65fb92e1814c, type: 3}
+  m_PrefabInstance: {fileID: 1944476927}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975bf4bfc419fbf4386c502ec0753b43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LaserPointer
 --- !u!1 &1547125526
 GameObject:
   m_ObjectHideFlags: 0
@@ -6760,15 +6776,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb216932c0ab7c4abedee2ecd80da8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeapingEnemy
-  player: {fileID: 1848181161}
+  patrolPoints:
+  - {fileID: 854595366}
+  - {fileID: 1088507690}
+  - {fileID: 1397354343}
+  - {fileID: 839153879}
   walkSpeed: 1.5
-  chaseDistance: 9
+  runSpeed: 2.5
+  viewDistance: 9
+  viewAngle: 120
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  chaseKeepTime: 2
+  lostWaitTime: 1.5
   leapSpeed: 20
   leapDuration: 0.4
-  leapCooldown: 4
-  leapRange: 8
+  leapCooldown: 3
+  leapRange: 10
   preLeapDelay: 0.2
   postLeapStun: 0.15
+  spriteRoot: {fileID: 456717672}
+  laser: {fileID: 1515677154}
 --- !u!1 &1848181160
 GameObject:
   m_ObjectHideFlags: 0
