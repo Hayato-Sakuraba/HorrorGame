@@ -9,6 +9,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
     public Vector2 MoveInput => moveInput;
+    private bool isDead = false;
+
+    public void SetDead(bool dead)
+    {
+        isDead = dead;
+    }
 
     private void Awake()
     {
@@ -21,15 +27,20 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void FixedUpdate()
-{
-    Vector2 move = new Vector2(moveInput.x, moveInput.y);
+    {
+        if (isDead)
+        {
+            rb.linearVelocity = Vector3.zero;
+            return;
+        }
+        Vector2 move = new Vector2(moveInput.x, moveInput.y);
 
-    bool dashKey = Keyboard.current.leftShiftKey.isPressed;
-    IsDashing = dashKey;
+        bool dashKey = Keyboard.current.leftShiftKey.isPressed;
+        IsDashing = dashKey;
 
-    float speed = dashKey ? dashSpeed : walkSpeed;
+        float speed = dashKey ? dashSpeed : walkSpeed;
 
-    rb.linearVelocity = move.normalized * speed;
-}
+        rb.linearVelocity = move.normalized * speed;
+    }
     public bool IsDashing { get; private set; }
 }
