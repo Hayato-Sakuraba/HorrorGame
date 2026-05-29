@@ -6,13 +6,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float walkSpeed = 3f;
     [SerializeField] private float dashSpeed = 7f;
 
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     private Vector2 moveInput;
     public Vector2 MoveInput => moveInput;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public void OnMove(InputValue value)
@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
 {
-    Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
+    Vector2 move = new Vector2(moveInput.x, moveInput.y);
 
     bool dashKey = Keyboard.current.leftShiftKey.isPressed;
     IsDashing = dashKey;
