@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     public Vector2 MoveInput => moveInput;
     private bool isDead = false;
+    private bool staminaEmpty = false;
 
     public void SetDead(bool dead)
     {
@@ -37,21 +38,26 @@ public class PlayerMovement : MonoBehaviour
         {
             currentStamina -= staminaConsumption * Time.deltaTime;
 
-            if (currentStamina < 0f)
+            if (currentStamina <= 0f)
             {
                 currentStamina = 0f;
+                staminaEmpty = true;
             }
         }
         else
         {
             currentStamina += staminaRecovery * Time.deltaTime;
-
-            if (currentStamina > maxStamina)
-            {
-                currentStamina = maxStamina;
-            }
         }
-        Debug.Log(currentStamina);
+
+        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+
+        if (currentStamina >= maxStamina - 0.01f)
+        {
+            currentStamina = maxStamina;
+            staminaEmpty = false;
+        }
+
+        Debug.Log("現在:" + currentStamina + " 最大:" + maxStamina);
     }
     private void FixedUpdate()
     {
@@ -65,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         bool dashKey =
             Keyboard.current.leftShiftKey.isPressed &&
             moveInput != Vector2.zero &&
-            currentStamina > 0f;
+            !staminaEmpty;
         IsDashing = dashKey;
 
         float speed = dashKey ? dashSpeed : walkSpeed;
