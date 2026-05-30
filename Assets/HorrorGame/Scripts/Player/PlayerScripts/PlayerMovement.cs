@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     public Vector2 MoveInput => moveInput;
     private bool isDead = false;
+    private bool staminaEmpty = false;
 
     public void SetDead(bool dead)
     {
@@ -33,24 +34,42 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        bool isMoving = moveInput != Vector2.zero;
+
         if (IsDashing)
         {
             currentStamina -= staminaConsumption * Time.deltaTime;
 
-            if (currentStamina < 0f)
+            if (currentStamina <= 0f)
             {
                 currentStamina = 0f;
+                staminaEmpty = true;
             }
         }
         else
         {
-            currentStamina += staminaRecovery * Time.deltaTime;
+            // スタミナ切れ中は、歩いている時だけ回復
+            if (staminaEmpty)
+            {
+                if (isMoving)
+                {
+                    currentStamina += staminaRecovery * Time.deltaTime;
+                }
+            }
+            else
+            {
+                currentStamina += staminaRecovery * Time.deltaTime;
+            }
 
-            if (currentStamina > maxStamina)
+            currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+
+            if (currentStamina >= maxStamina - 0.1f)
             {
                 currentStamina = maxStamina;
+                staminaEmpty = false;
             }
         }
+
         Debug.Log(currentStamina);
     }
     private void FixedUpdate()
@@ -65,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         bool dashKey =
             Keyboard.current.leftShiftKey.isPressed &&
             moveInput != Vector2.zero &&
-            currentStamina > 0f;
+            !staminaEmpty;
         IsDashing = dashKey;
 
         float speed = dashKey ? dashSpeed : walkSpeed;
