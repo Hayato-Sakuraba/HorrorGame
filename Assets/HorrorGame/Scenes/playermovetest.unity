@@ -820,9 +820,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1624782311277034347, guid: b3cc038da509b3141b627da1c8e5fccf, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
+    - target: {fileID: 2908717136088893824, guid: b3cc038da509b3141b627da1c8e5fccf, type: 3}
+      propertyPath: playerMovement
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3152406891672642504, guid: b3cc038da509b3141b627da1c8e5fccf, type: 3}
       propertyPath: m_Name
