@@ -94,6 +94,31 @@ public class InventoryManager : MonoBehaviour
         Debug.Log("お金：" + money);
     }
 
+    //落とし穴に落ちたらお宝ランダム破壊（50％）
+    public void DestroyRandomItem()
+{
+    if (items.Count == 0)
+    {
+        Debug.Log("破壊できるお宝がない");
+        return;
+    }
+
+    int randomIndex = Random.Range(0, items.Count);
+
+    InventoryItem item = items[randomIndex];
+
+    item.count--;
+
+    Debug.Log(item.itemId + " が壊れた");
+
+    if (item.count <= 0)
+    {
+        items.RemoveAt(randomIndex);
+    }
+
+    SaveInventory();
+}
+
     // セーブ
     public void SaveInventory()
     {
