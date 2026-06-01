@@ -4,68 +4,100 @@ using System.Collections;
 public class EnemyMelee : MonoBehaviour
 {
 	public Enemy2D enemy;
+
+	[Header("Attack Settings")]
 	public float attackRange = 1.2f;
-	public float attackInterval = 1.0f;
+	public float preDelay = 0.3f;
+	public float attackDuration = 0.1f;
+	public float postDelay = 0.4f;
+	public float attackCooldown = 1.0f;
 
-	public float preAttackDelay = 0.2f;
-	public float attackActiveTime = 0.2f;
-	public float postAttackStun = 0.25f;
+	[Header("Hitbox Visual (あなたの白い円スプライト)")]
+	public SpriteRenderer hitboxSprite;
+	public float forwardOffset = 0.7f;
+	public int playerLayer = 8;
 
-	public MeleeHitbox hitbox;
-
-	public SpriteRenderer spriteRenderer;
-	public Sprite normalSprite;
-	public Sprite attackSprite;
-
-	private float attackTimer = 0f;
 	private bool isAttacking = false;
+	private float cooldownTimer = 0f;
+
+	void Start()
+	{
+		if (hitboxSprite != null)
+			hitboxSprite.enabled = false;
+	}
 
 	void Update()
 	{
 		if (enemy == null || enemy.Target == null) return;
+
+		enemy.IsMovementStopped = isAttacking;
+
+		if (!enemy.IsChasingPlayerStable)
+		{
+			cooldownTimer = 0f;
+			return;
+		}
+
+		cooldownTimer += Time.deltaTime;
+
 		if (isAttacking) return;
 
-		if (enemy.IsChasingPlayerStable)
+		float dist = Vector2.Distance(transform.position, enemy.Target.position);
+
+		if (dist <= attackRange && cooldownTimer >= attackCooldown)
 		{
-			attackTimer += Time.deltaTime;
-
-			float dist = Vector2.Distance(transform.position, enemy.Target.position);
-
-			if (dist <= attackRange && attackTimer >= attackInterval)
-			{
-				StartCoroutine(AttackRoutine());
-				attackTimer = 0f;
-			}
+			StartCoroutine(AttackRoutine());
 		}
-		else attackTimer = 0f;
 	}
 
-	IEnumerator AttackRoutine()
+	private IEnumerator AttackRoutine()
 	{
 		isAttacking = true;
+		cooldownTimer = 0f;
 
-		// ★ 攻撃中は Enemy2D の AI を完全停止
-		enemy.IsExternalControl = true;
+		// --- 前隙 ---
+		yield return new WaitForSeconds(preDelay);
 
-		// ▼ 前隙
-		spriteRenderer.sprite = normalSprite;
-		hitbox.DisableHitbox();
-		yield return new WaitForSeconds(preAttackDelay);
+		// --- 攻撃 ---
+		if (hitboxSprite != null)
+			hitboxSprite.enabled = true; // ← 位置は絶対に触らない
 
-		// ▼ 攻撃開始
-		spriteRenderer.sprite = attackSprite;
-		hitbox.EnableHitbox();
-		yield return new WaitForSeconds(attackActiveTime);
+		Attack();
+		yield return new WaitForSeconds(attackDuration);
 
-		// ★ 攻撃判定はここで必ず終了
-		hitbox.DisableHitbox();
+		// --- 後隙 ---
+		if (hitboxSprite != null)
+			hitboxSprite.enabled = false;
 
-		// ▼ 後隙（攻撃スプライトのままでもOK）
-		yield return new WaitForSeconds(postAttackStun);
+		yield return new WaitForSeconds(postDelay);
 
-		// ▼ 復帰
-		spriteRenderer.sprite = normalSprite;
-		enemy.IsExternalControl = false;
 		isAttacking = false;
+	}
+
+	private void Attack()
+	{
+		float radius = hitboxSprite.bounds.size.x * 0.5f;
+
+		Vector3 hitPos = hitboxSprite.transform.position; // ← これが正しい
+
+		int layerMask = 1 << playerLayer;
+
+		Collider2D hit = Physics2D.OverlapCircle(hitPos, radius, layerMask);
+
+		if (hit != null)
+		{
+			Debug.Log("プレイヤーに命中！");
+		}
+	}
+
+	private void OnDrawGizmos()
+	{
+		if (hitboxSprite == null) return;
+
+		float radius = hitboxSprite.bounds.size.x * 0.5f;
+		Vector3 hitPos = hitboxSprite.transform.position;
+
+		Gizmos.color = Color.yellow;
+		Gizmos.DrawWireSphere(hitPos, radius);
 	}
 }

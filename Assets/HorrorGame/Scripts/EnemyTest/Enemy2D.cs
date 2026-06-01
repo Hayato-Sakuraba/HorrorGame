@@ -24,7 +24,7 @@ public class Enemy2D : MonoBehaviour
 	private float waitTimer = 0f;
 
 	[Header("Visual")]
-	[SerializeField] private Transform spriteRoot;
+	[SerializeField] public Transform spriteRoot;
 
 	public LaserPointer laser;
 

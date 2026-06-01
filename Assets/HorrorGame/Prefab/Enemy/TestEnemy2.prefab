@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3512328456844985674}
   - component: {fileID: 4899234749456554508}
+  - component: {fileID: 617964731960748956}
   m_Layer: 0
   m_Name: TestEnemy2
   m_TagString: Untagged
@@ -56,6 +57,40 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &617964731960748956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4392527363038704620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb216932c0ab7c4abedee2ecd80da8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LeapingEnemy
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  walkSpeed: 1.5
+  runSpeed: 3
+  viewDistance: 9
+  viewAngle: 60
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  chaseKeepTime: 2
+  lostWaitTime: 1.5
+  leapSpeed: 15
+  leapDuration: 0.35
+  leapCooldown: 3
+  leapRange: 11
+  preLeapDelay: 0.3
+  postLeapStun: 0.25
+  spriteRoot: {fileID: 6237644184449471373}
+  laser: {fileID: 8619738834919068722}
 --- !u!1 &5380372780974421610
 GameObject:
   m_ObjectHideFlags: 0
