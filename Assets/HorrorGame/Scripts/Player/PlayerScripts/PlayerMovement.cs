@@ -34,8 +34,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        bool isMoving = moveInput != Vector2.zero;
-
         if (IsDashing)
         {
             currentStamina -= staminaConsumption * Time.deltaTime;
@@ -48,26 +46,15 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // スタミナ切れ中は、歩いている時だけ回復
-            if (staminaEmpty)
-            {
-                if (isMoving)
-                {
-                    currentStamina += staminaRecovery * Time.deltaTime;
-                }
-            }
-            else
-            {
-                currentStamina += staminaRecovery * Time.deltaTime;
-            }
+            currentStamina += staminaRecovery * Time.deltaTime;
+        }
 
-            currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+        currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
 
-            if (currentStamina >= maxStamina - 0.1f)
-            {
-                currentStamina = maxStamina;
-                staminaEmpty = false;
-            }
+        if (currentStamina >= maxStamina - 0.01f)
+        {
+            currentStamina = maxStamina;
+            staminaEmpty = false;
         }
 
         Debug.Log(currentStamina);
