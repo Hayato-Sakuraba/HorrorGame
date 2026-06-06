@@ -1,18 +1,29 @@
 using System.Collections;
 using UnityEngine;
 
-public class Radioactivity : MonoBehaviour
+public class Radioactivity : MonoBehaviour, TrapInterface
 {
+    public AudioSource audioSource;
+    public AudioClip RadioactivitySE;
     public int damage = 5;
     public float interval = 1f;
 
     private Coroutine damageCoroutine;
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider player)
     {
-        if (other.CompareTag("Player"))
+        if (!player.CompareTag("Player"))
         {
-            damageCoroutine = StartCoroutine(DamageLoop(other.gameObject));
+            return;
+        }
+
+        ActiveTrap(player.gameObject);
+    }
+
+    public void ActiveTrap(GameObject player)
+    {
+        if (player.CompareTag("Player"))
+        {
+            damageCoroutine = StartCoroutine(DamageLoop(player.gameObject));
         }
     }
 

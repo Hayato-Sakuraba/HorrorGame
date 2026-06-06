@@ -1,20 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Inventory : MonoBehaviour
 {
-//容量
+    //容量
     public int maxSize = 100;
     public int currentSize = 0;
-//所持アイテム
+
+    //所持アイテム
     public List<Otakara> items = new List<Otakara>();
-//クレジット
+
+    //クレジット
     public CreditManager creditManager;
 
+    //枠UI
+    public TextMeshProUGUI capacityText;
+
+    // デバッグ用お宝
+    public Otakara testItem;
+
+    private void Start()
+    {
+        UpdateUI();
+
+        if (testItem != null)
+        {
+            AddItem(testItem);
+        }
+    }
 
     public bool AddItem(Otakara item)
     {
-        //items[Random.Range(0, items.Count)].;
         if (currentSize + item.guram > maxSize)
         {
             Debug.Log("容量オーバー！");
@@ -23,6 +40,9 @@ public class Inventory : MonoBehaviour
 
         items.Add(item);
         currentSize += item.guram;
+
+        UpdateUI();
+
         return true;
     }
 
@@ -30,10 +50,12 @@ public class Inventory : MonoBehaviour
     public int GetTotalPrice()
     {
         int total = 0;
+
         foreach (var item in items)
         {
-            total += item.price;
+            total += item.currentPrice;
         }
+
         return total;
     }
 
@@ -50,10 +72,46 @@ public class Inventory : MonoBehaviour
 
         creditManager.AddCredit(total);
 
-        // リセット（また拾える）
+        // リセット
         items.Clear();
         currentSize = 0;
 
+        UpdateUI();
+
         Debug.Log("変換完了: " + total);
+    }
+
+    // ランダムなお宝破壊
+    public void DestroyRandomItem()
+    {
+        if (items.Count <= 0)
+        {
+            Debug.Log("壊すアイテムなし");
+            return;
+        }
+
+        Otakara brokenItem =
+            items[Random.Range(0, items.Count)];
+
+        currentSize -= brokenItem.guram;
+
+        items.Remove(brokenItem);
+
+        UpdateUI();
+
+        Debug.Log(brokenItem.name + " が壊れた！");
+    }
+
+    
+    void UpdateUI()
+    {
+        if (capacityText != null)
+        {
+            capacityText.text =
+                "枠 : " +
+                currentSize +
+                " / " +
+                maxSize;
+        }
     }
 }

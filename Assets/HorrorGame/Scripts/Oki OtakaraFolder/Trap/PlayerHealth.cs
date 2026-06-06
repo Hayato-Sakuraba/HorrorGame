@@ -26,4 +26,13 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("死亡");
     }
+
+    public void InstantDeath()
+    {
+        currentHP = 0;
+
+        Debug.Log("即死");
+
+        Debug.Log("ゲームオーバー");
+    }
 }

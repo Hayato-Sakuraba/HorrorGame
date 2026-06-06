@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e27db943dbfcc94ea57aaa28508cc21, type: 3}
   m_Name: Data chip
   m_EditorClassIdentifier: Assembly-CSharp::Otakara
-  price: 21
+  price: 20
+  currentPrice: 20
   guram: 2
+  icon: {fileID: 21300000, guid: 26d8ff6afde51b747b12ca914403c2e5, type: 3}
+  description: "\u30C7\u30FC\u30BF\u30C1\u30C3\u30D7:\u58CA\u308C\u3066\u306A\u3051\u308C\u3070\u30C7\u30FC\u30BF\u304C\u898B\u308C\u308B\n\u67A0:2\n\u91D1\u984D:20\uFF04"

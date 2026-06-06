@@ -3,29 +3,58 @@ using UnityEngine.InputSystem;
 
 public class DebugMove : MonoBehaviour
 {
-    public float speed = 5f;
+    public float moveSpeed = 5f;
+
+    [HideInInspector]
+    public float currentSpeed;
 
     public bool canMove = true;
+
+    private Vector2 moveInput;
+
+    private void Start()
+    {
+        currentSpeed = moveSpeed;
+    }
 
     void Update()
     {
         if (!canMove)
+        {
             return;
+        }
 
-        Vector3 move = Vector3.zero;
+        Vector3 move =
+            new Vector3(
+                moveInput.x,
+                0,
+                moveInput.y
+            );
 
-        if (Keyboard.current.wKey.isPressed)
-            move += Vector3.forward;
+        transform.position +=
+            move * currentSpeed * Time.deltaTime;
+    }
 
-        if (Keyboard.current.sKey.isPressed)
-            move += Vector3.back;
+    // InputSystem
+    public void OnMove(InputValue value)
+    {
+        moveInput = value.Get<Vector2>();
+    }
 
-        if (Keyboard.current.aKey.isPressed)
-            move += Vector3.left;
+    // ë¨ìxïœçX
+    public void SetSpeed(float speed)
+    {
+        currentSpeed = speed;
+    }
 
-        if (Keyboard.current.dKey.isPressed)
-            move += Vector3.right;
+    // å≥Ç…ñﬂÇ∑
+    public void ResetSpeed()
+    {
+        currentSpeed = moveSpeed;
+    }
 
-        transform.position += move.normalized * speed * Time.deltaTime;
+    public Vector2 GetMoveInput()
+    {
+        return moveInput;
     }
 }

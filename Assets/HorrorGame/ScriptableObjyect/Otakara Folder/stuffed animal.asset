@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e27db943dbfcc94ea57aaa28508cc21, type: 3}
   m_Name: stuffed animal
   m_EditorClassIdentifier: Assembly-CSharp::Otakara
-  price: 51
+  price: 50
+  currentPrice: 50
   guram: 5
+  icon: {fileID: 21300000, guid: 5bdfba5b0a9198c4f914b29533cf9a85, type: 3}
+  description: "\u6C5A\u67D3\u3055\u308C\u305F\u306C\u3044\u3050\u308B\u307F:\u6C5A\u308C\u3066\u308B\u6301\u3061\u305F\u304F\u306A\u3044\n\u67A0:5\n\u91D1\u984D:50\uFF04"

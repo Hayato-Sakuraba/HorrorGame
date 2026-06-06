@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e27db943dbfcc94ea57aaa28508cc21, type: 3}
   m_Name: Black liquid tank
   m_EditorClassIdentifier: Assembly-CSharp::Otakara
-  price: 151
+  price: 150
+  currentPrice: 150
   guram: 8
+  icon: {fileID: 21300000, guid: f05b21137f2f11540ac0bf7256b829dd, type: 3}
+  description: "\u9ED2\u3044\u6DB2\u4F53\u30BF\u30F3\u30AF:\u91CD\u3044\n\u67A0:8\n\u91D1\u984D:150\uFF04"

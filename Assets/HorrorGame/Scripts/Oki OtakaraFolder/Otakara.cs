@@ -3,7 +3,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Otakara", menuName = "Otakara/kariOtakara")]
 public class Otakara : ScriptableObject
 {
-    [SerializeField] public int price;
-    [SerializeField] public int guram;
+    public int price;
+    public int currentPrice;
+    public int guram;
 
+    
+    public Sprite icon;
+    [TextArea]
+    public string description;
+    
+
+    private void OnEnable()
+    {
+        currentPrice = price;
+    }
 }
