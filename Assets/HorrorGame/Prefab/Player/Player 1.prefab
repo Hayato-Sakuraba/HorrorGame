@@ -509,8 +509,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LanternLight
   lanternLight: {fileID: 347464262659630300}
-  lanternSprite: {fileID: 0}
-  playerMovement: {fileID: 0}
+  lanternSprite: {fileID: 1366747348305534807}
+  playerMovement: {fileID: 2905413700986531343}
   normalRange: 8
   dashRange: 5
   normalScale: {x: 1, y: 1, z: 1}

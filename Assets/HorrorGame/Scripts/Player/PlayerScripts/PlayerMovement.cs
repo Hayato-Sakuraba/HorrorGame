@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             staminaEmpty = false;
         }
 
-        Debug.Log(currentStamina);
+        //Debug.Log(currentStamina);
     }
     private void FixedUpdate()
     {
