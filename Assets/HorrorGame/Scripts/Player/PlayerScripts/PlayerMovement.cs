@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float staminaConsumption = 30f;
 
     private float currentStamina;
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     private Vector2 moveInput;
     public Vector2 MoveInput => moveInput;
     private bool isDead = false;
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         currentStamina = maxStamina;
     }
 
@@ -64,17 +64,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDead)
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.linearVelocity = Vector2.zero;
             return;
         }
 
         if (!canMove)
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.linearVelocity = Vector2.zero;
             return;
         }
 
-        Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
+        Vector2 move = new Vector2(moveInput.x, moveInput.y);
         bool dashKey =
             Keyboard.current.leftShiftKey.isPressed &&
             moveInput != Vector2.zero &&

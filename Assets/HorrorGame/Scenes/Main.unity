@@ -849,9 +849,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5115556169276451393, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+    - {fileID: 8659016554477606280, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2274542001173228716, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 825091709}
     - targetCorrespondingSourceObject: {fileID: 2274542001173228716, guid: 3c1dd67801d14ab4f85b1bc1172428e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 825091708}
@@ -1272,6 +1276,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0.08462143, y: -0.05439949}
   m_Size: {x: 0.66924286, y: 0.891201}
   m_Direction: 0
+--- !u!114 &825091709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825091704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887464043d86f9949bc2e4f1a243a590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  walkSpeed: 3
+  dashSpeed: 7
+  maxStamina: 100
+  staminaRecovery: 20
+  staminaConsumption: 30
+  canMove: 1
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
