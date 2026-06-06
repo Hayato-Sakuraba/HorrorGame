@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+
 public class Enemy2D : MonoBehaviour
 {
 	[Header("References")]
@@ -13,13 +14,13 @@ public class Enemy2D : MonoBehaviour
 	public float runSpeed = 3.5f;
 
 	[Header("Vision Settings")]
-	public float viewDistance = 6f;      // 視界距離
-	public float viewAngle = 60f;        // 視野角（左右30°）
-	public LayerMask obstacleMask;       // 壁などの障害物レイヤー
+	public float viewDistance = 6f;
+	public float viewAngle = 60f;
+	public LayerMask obstacleMask;
 
 	[Header("Chase Settings")]
 	public float chaseKeepTime = 2f;
-	public float lostWaitTime = 1.5f; // 見失った後の待機時間
+	public float lostWaitTime = 1.5f;
 	private float chaseTimer = 0f;
 	private float waitTimer = 0f;
 
@@ -36,7 +37,8 @@ public class Enemy2D : MonoBehaviour
 
 	private enum State { Patrol, Chase, Wait }
 	private State state = State.Patrol;
-	private Vector2 lastMoveDir = Vector2.right; // 初期値は右
+	private Vector2 lastMoveDir = Vector2.right;
+
 	public Transform Target => target;
 	public bool IsExternalControl { get; set; } = false;
 
@@ -56,7 +58,7 @@ public class Enemy2D : MonoBehaviour
 		agent.updateRotation = false;
 		agent.updateUpAxis = false;
 
-		target = GameObject.FindWithTag("Player").transform;  
+		target = GameObject.FindWithTag("Player").transform;
 
 		agent.speed = walkSpeed;
 		GoToNextPatrolPoint();
@@ -70,7 +72,7 @@ public class Enemy2D : MonoBehaviour
 		{
 			agent.velocity = Vector3.zero;
 			agent.ResetPath();
-			return; // 移動処理をスキップ
+			return;
 		}
 
 		if (IsExternalControl)
@@ -80,6 +82,7 @@ public class Enemy2D : MonoBehaviour
 		}
 
 		bool canSeePlayer = CanSeePlayer();
+		canSeePlayerCached = canSeePlayer;
 
 		switch (state)
 		{
@@ -100,11 +103,10 @@ public class Enemy2D : MonoBehaviour
 	public bool IsChasingPlayer => state == State.Chase && canSeePlayerCached;
 	public bool IsChasingPlayerStable => state == State.Chase;
 
-	// パトロール状態
 	void PatrolUpdate(bool canSeePlayer)
 	{
 		laser.SetActive(false);
-		// プレイヤーを見つけたら追跡へ
+
 		if (canSeePlayer)
 		{
 			state = State.Chase;
@@ -113,14 +115,12 @@ public class Enemy2D : MonoBehaviour
 			return;
 		}
 
-		// パトロールポイントに到達したら次へ
 		if (!agent.pathPending && agent.remainingDistance < 0.2f)
 		{
 			GoToNextPatrolPoint();
 		}
 	}
 
-	// 追跡状態
 	void ChaseUpdate(bool canSeePlayer)
 	{
 		if (IsMovementStopped)
@@ -133,13 +133,9 @@ public class Enemy2D : MonoBehaviour
 		laser.SetActive(canSeePlayer);
 
 		if (canSeePlayer)
-		{
 			chaseTimer = chaseKeepTime;
-		}
 		else
-		{
 			chaseTimer -= Time.deltaTime;
-		}
 
 		if (chaseTimer <= 0f)
 		{
@@ -197,8 +193,6 @@ public class Enemy2D : MonoBehaviour
 		{
 			state = State.Patrol;
 			agent.speed = walkSpeed;
-
-			// ★ 最寄りのパトロールポイントへ向かう
 			GoToNearestPatrolPoint();
 		}
 	}
@@ -207,7 +201,6 @@ public class Enemy2D : MonoBehaviour
 	{
 		if (spriteRoot == null) return;
 
-		// 今の移動方向 or 最後に動いた方向
 		Vector2 moveDir = agent.velocity.sqrMagnitude > 0.01f
 			? agent.velocity.normalized
 			: lastMoveDir;
@@ -215,14 +208,17 @@ public class Enemy2D : MonoBehaviour
 		if (moveDir.sqrMagnitude < 0.001f)
 			return;
 
-		// 角度を計算（2D なので Z 回転）
 		float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
+		Quaternion targetRot = Quaternion.Euler(0, 0, angle - 90f);
 
-		// スプライトの前方向が「上」なら +90° 補正
-		spriteRoot.rotation = Quaternion.Euler(0, 0, angle - 90f);
+		// ★ ここを追加：スムーズに回転
+		spriteRoot.rotation = Quaternion.Slerp(
+			spriteRoot.rotation,
+			targetRot,
+			Time.deltaTime * 10f   // ← 回転速度（調整可）
+		);
 	}
 
-	// 視界判定
 	bool CanSeePlayer()
 	{
 		if (target == null)
@@ -236,13 +232,11 @@ public class Enemy2D : MonoBehaviour
 		if (distanceToPlayer > viewDistance)
 			return false;
 
-		// 向きは spriteRoot.up を基準にするのは OK
 		Vector2 forward = spriteRoot.up;
 		float angle = Vector2.Angle(forward, dirToPlayer);
 		if (angle > viewAngle * 0.5f)
 			return false;
 
-		// ★ Ray の長さを「プレイヤーまでの距離」に変更
 		RaycastHit2D hit = Physics2D.Raycast(pos, dirToPlayer, distanceToPlayer, obstacleMask);
 		if (hit && hit.collider.transform != target)
 			return false;
@@ -250,7 +244,6 @@ public class Enemy2D : MonoBehaviour
 		return true;
 	}
 
-	// パトロール地点へ移動
 	void GoToNextPatrolPoint()
 	{
 		if (patrolPoints.Length == 0) return;
@@ -271,7 +264,6 @@ public class Enemy2D : MonoBehaviour
 	{
 		IsMovementStopped = true;
 
-		// NavMeshAgent を完全停止
 		agent.velocity = Vector3.zero;
 		agent.ResetPath();
 
@@ -280,24 +272,21 @@ public class Enemy2D : MonoBehaviour
 		IsMovementStopped = false;
 	}
 
-	// Gizmo（視界の可視化）
 	void OnDrawGizmos()
 	{
 		if (!Application.isPlaying) return;
 
-		// 現在の向き（停止中は lastMoveDir）
 		Vector2 moveDir = agent.velocity.sqrMagnitude > 0.01f
 			? agent.velocity.normalized
 			: lastMoveDir;
 
-		Gizmos.color = new Color(1f, 1f, 0f, 0.25f); // 半透明の黄色
+		Gizmos.color = new Color(1f, 1f, 0f, 0.25f);
 
-		int segments = 30; // 扇形の分割数
+		int segments = 30;
 		float halfAngle = viewAngle * 0.5f;
 
 		Vector3 origin = transform.position;
 
-		// 扇形を描く
 		for (int i = 0; i < segments; i++)
 		{
 			float angle1 = -halfAngle + (viewAngle / segments) * i;
@@ -313,7 +302,6 @@ public class Enemy2D : MonoBehaviour
 			Gizmos.DrawLine(p1, p2);
 		}
 
-		// 中央方向の赤線
 		Gizmos.color = Color.red;
 		Gizmos.DrawLine(origin, origin + (Vector3)moveDir * viewDistance);
 	}
