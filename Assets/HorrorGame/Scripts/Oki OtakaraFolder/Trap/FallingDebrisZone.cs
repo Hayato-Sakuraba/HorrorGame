@@ -10,7 +10,7 @@ public class FallingDebrisZone : MonoBehaviour, TrapInterface
     public float checkInterval = 1f;
 
     private float timer;
-    private void OnTriggerEnter(Collider player)
+    private void OnTriggerStay(Collider player)
     {
         if (!player.CompareTag("Player"))
         {
