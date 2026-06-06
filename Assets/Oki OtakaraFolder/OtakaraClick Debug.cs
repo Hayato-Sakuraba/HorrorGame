@@ -1,23 +1,36 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class OtakaraClick : MonoBehaviour
 {
     public Otakara data;
     public Inventory inventory;
+    public PopupManager popupManager;
 
-    void OnMouseDown()
+    void Update()
     {
-        // 容量チェック
-        if (inventory.AddItem(data))
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Debug.Log("クリックで取得");
-            Destroy(gameObject);
-        }
-        else
-        {
-            // 容量オーバー時
+            Ray ray =
+                Camera.main.ScreenPointToRay(
+                    Mouse.current.position.ReadValue()
+                );
 
-            Debug.Log("容量オーバーで拾えない");
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject == gameObject)
+                {
+                    if (inventory.AddItem(data))
+                    {
+                        // Popup表示
+                        popupManager.ShowPopup(data);
+
+                        Destroy(gameObject);
+                    }
+                }
+            }
         }
     }
 }

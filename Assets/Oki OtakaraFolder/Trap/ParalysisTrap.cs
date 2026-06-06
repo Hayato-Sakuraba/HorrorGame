@@ -1,15 +1,26 @@
 using System.Collections;
 using UnityEngine;
 
-public class ParalysisTrap : MonoBehaviour
+public class ParalysisTrap : MonoBehaviour, TrapInterface
 {
+    public AudioSource audioSource;
+    public AudioClip ParalysisSE;
     public float paralysisTime = 3f;
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider player)
     {
-        if (other.CompareTag("Player"))
+        if (!player.CompareTag("Player"))
         {
-            DebugMove move = other.GetComponent<DebugMove>();
+            return;
+        }
+
+        ActiveTrap(player.gameObject);
+    }
+
+    public void ActiveTrap(GameObject player)
+    {
+        if (player.CompareTag("Player"))
+        {
+            DebugMove move = player.GetComponent<DebugMove>();
 
             if (move != null)
             {

@@ -3,12 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float walkSpeed = 3f;
-    [SerializeField] private float dashSpeed = 7f;
-
+    [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] private float dashSpeed = 9f;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
+
+    public bool IsDashing { get; private set; }
 
     private void Awake()
     {
@@ -22,17 +23,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 Up = transform.up;
-        Vector2 right = transform.right;
+        bool dashKey =
+            Keyboard.current.leftShiftKey.isPressed;
 
-        Vector2 move = (Up * moveInput.y + right * moveInput.x).normalized;
-        Debug.Log(moveInput.y);
+        IsDashing = dashKey;
 
-        bool dashKey = Keyboard.current.leftShiftKey.isPressed;
-        IsDashing=dashKey;
-        float speed = dashKey ? dashSpeed : walkSpeed;
+        float speed =
+            dashKey ? dashSpeed : walkSpeed;
 
-        rb.linearVelocity = move * speed;
+        rb.linearVelocity =
+            moveInput.normalized * speed;
     }
-    public bool IsDashing { get; private set; }
 }

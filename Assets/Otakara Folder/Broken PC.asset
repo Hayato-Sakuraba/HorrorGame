@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e27db943dbfcc94ea57aaa28508cc21, type: 3}
   m_Name: Broken PC
   m_EditorClassIdentifier: Assembly-CSharp::Otakara
-  price: 81
+  price: 80
+  currentPrice: 80
   guram: 6
+  icon: {fileID: 21300000, guid: 295dbc232f626ff49aac04dda8d7e519, type: 3}
+  description: "\u58CA\u308C\u305FPC:\u4F7F\u3048\u306A\u3055\u305D\u3046\u3001\u91CD\u3044\n\u67A0:6\n\u91D1\u984D:80\uFF04"

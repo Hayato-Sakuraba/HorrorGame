@@ -44,7 +44,7 @@ public class CreditManager : MonoBehaviour
     {
         if (creditText != null)
         {
-            creditText.text = "Credit : " + currentCredit;
+            creditText.text = "クレジット : " + currentCredit;
         }
     }
 

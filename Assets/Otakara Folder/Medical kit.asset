@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e27db943dbfcc94ea57aaa28508cc21, type: 3}
   m_Name: Medical kit
   m_EditorClassIdentifier: Assembly-CSharp::Otakara
-  price: 331
+  price: 30
+  currentPrice: 30
   guram: 3
+  icon: {fileID: 21300000, guid: 247b3626a3d0baa438912eb48f926712, type: 3}
+  description: "\u533B\u7642\u30AD\u30C3\u30C8:\u307E\u3060\u4F7F\u3048\u305D\u3046\n\u67A0:3\n\u91D1\u984D:30\uFF04"
