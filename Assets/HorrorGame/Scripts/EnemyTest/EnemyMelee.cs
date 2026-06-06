@@ -12,10 +12,16 @@ public class EnemyMelee : MonoBehaviour
 	public float postDelay = 0.4f;
 	public float attackCooldown = 1.0f;
 
-	[Header("Hitbox Visual (あなたの白い円スプライト)")]
+	[Header("Sprites")]
+	public SpriteRenderer bodySprite;
+	public Sprite idleSprite;
+	public Sprite preAttackSprite;
+	public Sprite attackSprite;
+	public Sprite postAttackSprite;
+
+	[Header("Hitbox Visual")]
 	public SpriteRenderer hitboxSprite;
 	public float forwardOffset = 0.7f;
-	public int playerLayer = 8;
 
 	private bool isAttacking = false;
 	private float cooldownTimer = 0f;
@@ -24,6 +30,8 @@ public class EnemyMelee : MonoBehaviour
 	{
 		if (hitboxSprite != null)
 			hitboxSprite.enabled = false;
+
+		bodySprite.sprite = idleSprite;
 	}
 
 	void Update()
@@ -55,36 +63,61 @@ public class EnemyMelee : MonoBehaviour
 		isAttacking = true;
 		cooldownTimer = 0f;
 
+		// 敵の移動を完全停止
+		float totalStop = preDelay + attackDuration + postDelay;
+		enemy.StopMovementFor(totalStop);
+
 		// --- 前隙 ---
+		bodySprite.sprite = preAttackSprite;
 		yield return new WaitForSeconds(preDelay);
 
 		// --- 攻撃 ---
-		if (hitboxSprite != null)
-			hitboxSprite.enabled = true; // ← 位置は絶対に触らない
-
-		Attack();
+		bodySprite.sprite = attackSprite;
+		OnAttackStart();
 		yield return new WaitForSeconds(attackDuration);
+		OnAttackEnd();
 
 		// --- 後隙 ---
-		if (hitboxSprite != null)
-			hitboxSprite.enabled = false;
-
+		bodySprite.sprite = postAttackSprite;
 		yield return new WaitForSeconds(postDelay);
+
+		// Idle に戻す
+		bodySprite.sprite = idleSprite;
 
 		isAttacking = false;
 	}
 
+	public void OnAttackStart()
+	{
+		if (hitboxSprite != null)
+			hitboxSprite.enabled = true;
+
+		// ★ 敵の向きは spriteRoot.up を使う
+		Vector3 forward = enemy.spriteRoot.up;
+
+		hitboxSprite.transform.position =
+			transform.position + forward * forwardOffset;
+
+		Attack();
+	}
+
+	public void OnAttackEnd()
+	{
+		if (hitboxSprite != null)
+			hitboxSprite.enabled = false;
+	}
+
 	private void Attack()
 	{
-		float radius = hitboxSprite.bounds.size.x * 0.5f;
+		float radius = hitboxSprite.bounds.size.x > 0
+			? hitboxSprite.bounds.size.x * 0.5f
+			: hitboxSprite.transform.lossyScale.x * 0.5f;
 
-		Vector3 hitPos = hitboxSprite.transform.position; // ← これが正しい
+		Vector3 hitPos = hitboxSprite.transform.position;
 
-		int layerMask = 1 << playerLayer;
+		Collider2D hit = Physics2D.OverlapCircle(hitPos, radius);
 
-		Collider2D hit = Physics2D.OverlapCircle(hitPos, radius, layerMask);
-
-		if (hit != null)
+		if (hit != null && hit.CompareTag("Player"))
 		{
 			Debug.Log("プレイヤーに命中！");
 		}
@@ -94,7 +127,10 @@ public class EnemyMelee : MonoBehaviour
 	{
 		if (hitboxSprite == null) return;
 
-		float radius = hitboxSprite.bounds.size.x * 0.5f;
+		float radius = hitboxSprite.bounds.size.x > 0
+			? hitboxSprite.bounds.size.x * 0.5f
+			: hitboxSprite.transform.lossyScale.x * 0.5f;
+
 		Vector3 hitPos = hitboxSprite.transform.position;
 
 		Gizmos.color = Color.yellow;

@@ -320,6 +320,11 @@ Transform:
   - {fileID: 6596902277285903509}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &790181599 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3969641737209985851, guid: 5ea26743d7cca8b4c9ba7fcb1e9e7cc6, type: 3}
+  m_PrefabInstance: {fileID: 1396746303825602310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &839153878
 GameObject:
   m_ObjectHideFlags: 0
@@ -3897,6 +3902,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestEnemy3
       objectReference: {fileID: 0}
+    - target: {fileID: 604509613001201733, guid: 8361b35241c34224fa8ad9448cc3590f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1423851199069703524, guid: 8361b35241c34224fa8ad9448cc3590f, type: 3}
       propertyPath: playerRoot
       value: 
@@ -4065,6 +4074,26 @@ PrefabInstance:
       propertyPath: playerRoot
       value: 
       objectReference: {fileID: 2068949252}
+    - target: {fileID: 2358571379448143648, guid: 5ea26743d7cca8b4c9ba7fcb1e9e7cc6, type: 3}
+      propertyPath: bodySprite
+      value: 
+      objectReference: {fileID: 790181599}
+    - target: {fileID: 2358571379448143648, guid: 5ea26743d7cca8b4c9ba7fcb1e9e7cc6, type: 3}
+      propertyPath: idleSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: adf44efb512a8cb479393b6272553712, type: 3}
+    - target: {fileID: 2358571379448143648, guid: 5ea26743d7cca8b4c9ba7fcb1e9e7cc6, type: 3}
+      propertyPath: attackSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ba50e372a6fcd2479726787014dbd14, type: 3}
+    - target: {fileID: 2358571379448143648, guid: 5ea26743d7cca8b4c9ba7fcb1e9e7cc6, type: 3}
+      propertyPath: preAttackSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 02c1adfe246444e46a5eacc1a526472b, type: 3}
+    - target: {fileID: 2358571379448143648, guid: 5ea26743d7cca8b4c9ba7fcb1e9e7cc6, type: 3}
+      propertyPath: postAttackSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: adf44efb512a8cb479393b6272553712, type: 3}
     - target: {fileID: 5900438291594393885, guid: 5ea26743d7cca8b4c9ba7fcb1e9e7cc6, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
@@ -4220,6 +4249,10 @@ PrefabInstance:
     - target: {fileID: 4392527363038704620, guid: 577ce6844ac58cb4088c7b65bd24e2ae, type: 3}
       propertyPath: m_Name
       value: TestEnemy2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392527363038704620, guid: 577ce6844ac58cb4088c7b65bd24e2ae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8619738834919068722, guid: 577ce6844ac58cb4088c7b65bd24e2ae, type: 3}
       propertyPath: playerRoot
