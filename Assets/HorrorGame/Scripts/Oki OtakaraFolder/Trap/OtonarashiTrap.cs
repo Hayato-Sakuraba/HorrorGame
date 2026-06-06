@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class OtonarashiTrap : MonoBehaviour, TrapInterface
 {
-    public void ActiveTrap(Transform playerTransform)
+    public void ActiveTrap(GameObject player)
     {
-        TrapEvent.TriggerOtonarashiTrap(playerTransform);
+        TrapEvent.TriggerOtonarashiTrap(player);
     }
 }

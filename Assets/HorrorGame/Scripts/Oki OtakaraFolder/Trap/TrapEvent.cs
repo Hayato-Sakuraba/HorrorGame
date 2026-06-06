@@ -3,6 +3,6 @@ using System;
 
 public class TrapEvent
 {
-    public static event Action<Transform> OtonarashiTrapActivated;
-    public static void TriggerOtonarashiTrap(Transform playerTransform) => OtonarashiTrapActivated?.Invoke(playerTransform);
+    public static event Action<GameObject> OtonarashiTrapActivated;
+    public static void TriggerOtonarashiTrap(GameObject player) => OtonarashiTrapActivated?.Invoke(player);
 }

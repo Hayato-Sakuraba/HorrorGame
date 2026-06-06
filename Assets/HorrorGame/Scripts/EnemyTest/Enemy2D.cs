@@ -158,9 +158,9 @@ public class Enemy2D : MonoBehaviour
 			lastMoveDir = agent.velocity.normalized;
 	}
 
-	private void GetPlayerPosition(Transform playerPos)
+	private void GetPlayerPosition(GameObject player)
 	{
-		target = playerPos;
+		target = player.transform;
 		state = State.Chase;
 		agent.SetDestination(target.position);
 	}

@@ -305,9 +305,9 @@ public class LeapingEnemy: MonoBehaviour
 	{
 		TrapEvent.OtonarashiTrapActivated -= GetPlayerPosition;
 	}
-	private void GetPlayerPosition(Transform playerPos)
+	private void GetPlayerPosition(GameObject player)
 	{
-		target = playerPos;
+		target = player.transform;
 		state = State.Chase;
 		agent.SetDestination(target.position);
 	}
