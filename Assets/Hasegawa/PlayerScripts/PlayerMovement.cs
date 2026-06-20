@@ -64,17 +64,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDead)
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.linearVelocity = Vector2.zero;
             return;
         }
 
         if (!canMove)
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.linearVelocity = Vector2.zero;
             return;
         }
 
-        Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y);
+        Vector2 move = new Vector2(moveInput.x, moveInput.y);
         bool dashKey =
             Keyboard.current.leftShiftKey.isPressed &&
             moveInput != Vector2.zero &&
