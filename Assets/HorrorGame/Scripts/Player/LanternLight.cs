@@ -30,7 +30,6 @@ public class LanternLight : MonoBehaviour
         lanternSprite = GetComponentInChildren<SpriteRenderer>()?.transform;
         playerMovement = GetComponentInParent<PlayerMovement>();
     }
-
     private void Update()
     {
         if (playerMovement == null) return;
