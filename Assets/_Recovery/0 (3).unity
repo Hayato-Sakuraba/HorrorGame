@@ -1570,11 +1570,11 @@ PrefabInstance:
     - target: {fileID: 3795454941928068031, guid: d488a15ec7aed0a4f833a0366bee3b7f, type: 3}
       propertyPath: backSprite
       value: 
-      objectReference: {fileID: 21300000, guid: aedf9ce3ed379d64db426fee26f1b5b4, type: 3}
+      objectReference: {fileID: 21300000, guid: d2f1235a558c4eb4f8495e226a7255d1, type: 3}
     - target: {fileID: 3795454941928068031, guid: d488a15ec7aed0a4f833a0366bee3b7f, type: 3}
       propertyPath: leftSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8c8f824a67ea0bf41b3c9c4a09f8fee7, type: 3}
+      objectReference: {fileID: 21300000, guid: 0659aef5c5674b145a373c835ae72082, type: 3}
     - target: {fileID: 3795454941928068031, guid: d488a15ec7aed0a4f833a0366bee3b7f, type: 3}
       propertyPath: rightSprite
       value: 

@@ -1,29 +1,46 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    private Animator animator;
-    private PlayerMovement playerMovement;
+    [SerializeField] private Image playerImage;
+    [SerializeField] private PlayerMovement playerMovement;
 
-    private Vector2 lastMoveDirection;
+    [Header("方向画像")]
+    [SerializeField] private Sprite frontSprite;
+    [SerializeField] private Sprite backSprite;
+    [SerializeField] private Sprite leftSprite;
+    [SerializeField] private Sprite rightSprite;
 
-    private void Awake()
+    private Vector2 lastMoveDirection = Vector2.down;
+
+    private void Reset()
     {
-        animator = GetComponent<Animator>();
+        playerImage = GetComponent<Image>();
         playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void Update()
     {
+        if (playerImage == null || playerMovement == null)
+        {
+            return;
+        }
+
         Vector2 moveInput = playerMovement.MoveInput;
 
-        // 入力がある時だけ方向更新
         if (moveInput != Vector2.zero)
         {
             lastMoveDirection = moveInput;
         }
 
-        animator.SetFloat("MoveX", lastMoveDirection.x);
-        animator.SetFloat("MoveY", lastMoveDirection.y);
+        if (Mathf.Abs(lastMoveDirection.x) > Mathf.Abs(lastMoveDirection.y))
+        {
+            playerImage.sprite = lastMoveDirection.x > 0 ? rightSprite : leftSprite;
+        }
+        else
+        {
+            playerImage.sprite = lastMoveDirection.y > 0 ? backSprite : frontSprite;
+        }
     }
 }
