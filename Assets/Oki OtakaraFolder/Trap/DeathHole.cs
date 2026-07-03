@@ -1,28 +1,32 @@
 using UnityEngine;
 
-public class DeathHole : MonoBehaviour,TrapInterface
+public class DeathHole : MonoBehaviour, TrapInterface
 {
     public AudioSource audioSource;
-    public AudioClip deathSE;
-    private void OnTriggerEnter(Collider player)
-
-    {
-        if (!player.CompareTag("Player"))
-        {
-            return;
-        }
-
-        ActiveTrap(player.gameObject);
-    }
+    public AudioClip trapSE;
 
     public void ActiveTrap(GameObject player)
     {
+        if (audioSource != null &&
+            trapSE != null)
+        {
+            audioSource.PlayOneShot(trapSE);
+        }
+
         PlayerHealth health =
             player.GetComponent<PlayerHealth>();
 
         if (health != null)
         {
             health.InstantDeath();
+        }
+    }
+
+    public void UnActiveTrap()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Stop();
         }
     }
 }

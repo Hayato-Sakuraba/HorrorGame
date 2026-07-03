@@ -6,8 +6,8 @@ public class Otakara : ScriptableObject
     public int price;
     public int currentPrice;
     public int guram;
+    public string itemName;
 
-    
     public Sprite icon;
     [TextArea]
     public string description;

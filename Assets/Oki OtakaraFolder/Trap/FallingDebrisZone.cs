@@ -2,41 +2,34 @@ using UnityEngine;
 
 public class FallingDebrisZone : MonoBehaviour, TrapInterface
 {
+    [Header("効果音")]
     public AudioSource audioSource;
-    public AudioClip FallingSE;
+    public AudioClip deathSE;
+
     [Range(0f, 1f)]
     public float deathChance = 0.2f;
 
     public float checkInterval = 1f;
 
-    private float timer;
-    private void OnTriggerStay(Collider player)
+    private float timer = 0f;
+    private GameObject currentPlayer;
+
+    private void Update()
     {
-        if (!player.CompareTag("Player"))
+        if (currentPlayer == null)
         {
             return;
         }
 
-        ActiveTrap(player.gameObject);
-    }
-
-    public void ActiveTrap(GameObject player)
-    {
-        if (!player.CompareTag("Player"))
-        {
-            return;
-        }
-
-        // 動いてるか確認
         DebugMove move =
-            player.GetComponent<DebugMove>();
+            currentPlayer.GetComponent<DebugMove>();
 
         if (move == null)
         {
             return;
         }
 
-        // 入力なしなら安全
+        // 動いていないなら判定しない
         if (move.GetMoveInput() == Vector2.zero)
         {
             return;
@@ -51,24 +44,50 @@ public class FallingDebrisZone : MonoBehaviour, TrapInterface
 
         timer = 0f;
 
-        float random =
-            Random.Range(0f, 1f);
+        float random = Random.Range(0f, 1f);
 
         if (random <= deathChance)
         {
+            if (audioSource != null && deathSE != null)
+            {
+                audioSource.PlayOneShot(deathSE);
+            }
+
             PlayerHealth health =
-                player.GetComponent<PlayerHealth>();
+                currentPlayer.GetComponent<PlayerHealth>();
 
             if (health != null)
             {
                 Debug.Log("瓦礫直撃！");
-
                 health.InstantDeath();
             }
         }
         else
         {
             Debug.Log("瓦礫回避");
+        }
+    }
+
+    public void ActiveTrap(GameObject player)
+    {
+        currentPlayer = player;
+
+        if (audioSource != null &&
+            !audioSource.isPlaying)
+        {
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+    }
+
+    public void UnActiveTrap()
+    {
+        currentPlayer = null;
+        timer = 0f;
+
+        if (audioSource != null)
+        {
+            audioSource.Stop();
         }
     }
 }

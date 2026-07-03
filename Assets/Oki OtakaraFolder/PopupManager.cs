@@ -11,7 +11,12 @@ public class PopupManager : MonoBehaviour
 
     private bool showing = false;
 
-    void Update()
+    private void Start()
+    {
+        popupPanel.SetActive(false);
+    }
+
+    private void Update()
     {
         if (
             showing &&
@@ -32,14 +37,25 @@ public class PopupManager : MonoBehaviour
         showing = true;
 
         Time.timeScale = 0f;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
-    void ClosePopup()
+    private void ClosePopup()
     {
         popupPanel.SetActive(false);
 
         showing = false;
 
         Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public bool IsShowing()
+    {
+        return showing;
     }
 }

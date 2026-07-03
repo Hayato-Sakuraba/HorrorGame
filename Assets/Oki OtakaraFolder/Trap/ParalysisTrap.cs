@@ -5,27 +5,31 @@ public class ParalysisTrap : MonoBehaviour, TrapInterface
 {
     public AudioSource audioSource;
     public AudioClip ParalysisSE;
-    public float paralysisTime = 3f;
-    private void OnTriggerEnter(Collider player)
-    {
-        if (!player.CompareTag("Player"))
-        {
-            return;
-        }
 
-        ActiveTrap(player.gameObject);
-    }
+    public float paralysisTime = 3f;
 
     public void ActiveTrap(GameObject player)
     {
-        if (player.CompareTag("Player"))
-        {
-            DebugMove move = player.GetComponent<DebugMove>();
+        DebugMove move =
+            player.GetComponent<DebugMove>();
 
-            if (move != null)
+        if (move != null)
+        {
+            if (audioSource != null &&
+                ParalysisSE != null)
             {
-                StartCoroutine(Paralyze(move));
+                audioSource.PlayOneShot(ParalysisSE);
             }
+
+            StartCoroutine(Paralyze(move));
+        }
+    }
+
+    public void UnActiveTrap()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Stop();
         }
     }
 

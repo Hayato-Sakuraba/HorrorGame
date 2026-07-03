@@ -1,55 +1,66 @@
 using System.Collections;
 using UnityEngine;
 
-public class ContaminationZone : MonoBehaviour,TrapInterface
+public class ContaminationZone : MonoBehaviour, TrapInterface
 {
-    public AudioSource audioSource;
-    public AudioClip ContaminationSE;
+    [Header("Audio")]
+    public AudioSource areaAudioSource; // エリアループ音
+    public AudioSource seAudioSource;   // 効果音
+
+    public AudioClip ContaminationSE; // 汚染エリア音
+    public AudioClip valueDownSE;     // 価値減少音
+    public AudioClip breakItemSE;     // 崩壊音
+
+    [Header("Settings")]
     public float contaminationTime = 20f;
 
     private Coroutine contaminationCoroutine;
-    private void OnTriggerEnter(Collider player)
+
+
+
+    public void UnActiveTrap()
     {
-        if (!player.CompareTag("Player"))
-        {
-            return;
-        }
-
-        ActiveTrap(player.gameObject);
-    }
-
-    public void ActiveTrap(GameObject player)
-    {
-        if (!player.CompareTag("Player"))
-        {
-            return;
-        }
-
-        Inventory inventory = player.GetComponent<Inventory>();
-
-        if (inventory != null)
-        {
-            contaminationCoroutine =
-                StartCoroutine(Contaminate(inventory));
-
-            Debug.Log("汚染開始");
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Player"))
-        {
-            return;
-        }
-
         if (contaminationCoroutine != null)
         {
             StopCoroutine(contaminationCoroutine);
+            contaminationCoroutine = null;
+        }
 
-            Debug.Log("汚染終了");
+        if (areaAudioSource != null)
+        {
+            areaAudioSource.Stop();
+        }
+
+        Debug.Log("汚染終了");
+    }
+    public void ActiveTrap(GameObject player)
+    {
+        Inventory inventory =
+            player.GetComponent<Inventory>();
+
+        if (inventory != null &&
+            contaminationCoroutine == null)
+        {
+            contaminationCoroutine =
+                StartCoroutine(
+                    Contaminate(inventory)
+                );
+
+            Debug.Log("汚染開始");
+        }
+
+        if (areaAudioSource != null &&
+            ContaminationSE != null &&
+            !areaAudioSource.isPlaying)
+        {
+            areaAudioSource.clip = ContaminationSE;
+            areaAudioSource.loop = true;
+            areaAudioSource.Play();
         }
     }
+
+
+    
 
     IEnumerator Contaminate(Inventory inventory)
     {
@@ -62,14 +73,20 @@ public class ContaminationZone : MonoBehaviour,TrapInterface
                 continue;
             }
 
-            // ランダムお宝取得
+            // ランダムなお宝を選択
             Otakara item =
                 inventory.items[
                     Random.Range(0, inventory.items.Count)
                 ];
 
-            // 半額
+            // 半額にする
             item.currentPrice /= 2;
+
+            // 価値減少音
+            if (seAudioSource != null && valueDownSE != null)
+            {
+                seAudioSource.PlayOneShot(valueDownSE);
+            }
 
             Debug.Log(
                 item.name +
@@ -77,12 +94,16 @@ public class ContaminationZone : MonoBehaviour,TrapInterface
                 item.currentPrice
             );
 
-            // 10以下なら破壊
+            // 価値が10以下なら破壊
             if (item.currentPrice <= 10)
             {
-                inventory.items.Remove(item);
+                if (seAudioSource != null &&
+                    breakItemSE != null)
+                {
+                    seAudioSource.PlayOneShot(breakItemSE);
+                }
 
-                inventory.currentSize -= item.guram;
+                inventory.RemoveItem(item);
 
                 Debug.Log(
                     item.name +

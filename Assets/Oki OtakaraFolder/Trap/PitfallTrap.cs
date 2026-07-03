@@ -12,11 +12,11 @@ public class PitfallTrap : MonoBehaviour, TrapInterface
 
     private int hitCount = 0;
 
-    private void OnTriggerEnter(Collider player)
+    public void UnActiveTrap()
     {
-        if (player.CompareTag("Player"))
+        if (audioSource != null)
         {
-            ActiveTrap(player.gameObject);
+            audioSource.Stop();
         }
     }
 
@@ -32,14 +32,16 @@ public class PitfallTrap : MonoBehaviour, TrapInterface
 
         PlaySE(fallSE);
 
-        DebugMove move = player.GetComponent<DebugMove>();
+        DebugMove move =
+            player.GetComponent<DebugMove>();
 
         if (move != null)
         {
             StartCoroutine(StopMove(move));
         }
 
-        Inventory inventory = player.GetComponent<Inventory>();
+        Inventory inventory =
+            player.GetComponent<Inventory>();
 
         if (inventory != null)
         {

@@ -3,50 +3,63 @@ using UnityEngine;
 
 public class Radioactivity : MonoBehaviour, TrapInterface
 {
-    public AudioSource audioSource;
-    public AudioClip RadioactivitySE;
+    [Header("ê›íË")]
     public int damage = 5;
     public float interval = 1f;
 
-    private Coroutine damageCoroutine;
-    private void OnTriggerEnter(Collider player)
-    {
-        if (!player.CompareTag("Player"))
-        {
-            return;
-        }
+    [Header("å¯â âπ")]
+    public AudioSource audioSource;
+    public AudioClip damejiSE;
 
-        ActiveTrap(player.gameObject);
-    }
+    private Coroutine damageCoroutine;
 
     public void ActiveTrap(GameObject player)
     {
-        if (player.CompareTag("Player"))
+        if (damageCoroutine == null)
         {
-            damageCoroutine = StartCoroutine(DamageLoop(player.gameObject));
+            damageCoroutine =
+                StartCoroutine(
+                    DamageLoop(player)
+                );
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void UnActiveTrap()
     {
-        if (other.CompareTag("Player"))
+        if (damageCoroutine != null)
         {
-            if (damageCoroutine != null)
-            {
-                StopCoroutine(damageCoroutine);
-            }
+            StopCoroutine(damageCoroutine);
+            damageCoroutine = null;
         }
+
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+        }
+
     }
 
     IEnumerator DamageLoop(GameObject target)
     {
-        PlayerHealth health = target.GetComponent<PlayerHealth>();
+        PlayerHealth health =
+            target.GetComponent<PlayerHealth>();
 
         while (true)
         {
             if (health != null)
             {
                 health.TakeDamage(damage);
+
+                if (audioSource != null &&
+                    damejiSE != null)
+                {
+                    audioSource.PlayOneShot(damejiSE);
+                }
+
+                Debug.Log(
+                    "ï˙éÀê¸É_ÉÅÅ[ÉW : " +
+                    damage
+                );
             }
 
             yield return new WaitForSeconds(interval);

@@ -1,51 +1,80 @@
+using System.Collections;
 using UnityEngine;
 
-public class SlowZone : MonoBehaviour,TrapInterface
+public class SlowZone : MonoBehaviour, TrapInterface
 {
     public float slowMultiplier = 0.5f;
 
     public AudioSource audioSource;
     public AudioClip slowSE;
-    private void OnTriggerEnter(Collider player)
-    {
-        if (!player.CompareTag("Player"))
-        {
-            return;
-        }
 
-        ActiveTrap(player.gameObject);
-    }
+    private DebugMove currentPlayer;
+    private Coroutine soundCoroutine;
 
     public void ActiveTrap(GameObject player)
     {
-        DebugMove move =
-            player.GetComponent<DebugMove>();
+        currentPlayer = player.GetComponent<DebugMove>();
 
-        if (move != null)
+        if (currentPlayer != null)
         {
-            move.SetSpeed(
-                move.moveSpeed * slowMultiplier
+            currentPlayer.SetSpeed(
+                currentPlayer.moveSpeed * slowMultiplier
             );
 
             Debug.Log("ˆÚ“®‘¬“x’á‰º");
+
+            if (soundCoroutine == null)
+            {
+                soundCoroutine = StartCoroutine(CheckMoveSound());
+            }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void UnActiveTrap()
     {
-        if (!other.CompareTag("Player"))
+        if (currentPlayer != null)
         {
-            return;
-        }
-
-        DebugMove move =
-            other.GetComponent<DebugMove>();
-
-        if (move != null)
-        {
-            move.ResetSpeed();
+            currentPlayer.ResetSpeed();
+            currentPlayer = null;
 
             Debug.Log("‘¬“x–ß‚Á‚½");
+        }
+
+        if (soundCoroutine != null)
+        {
+            StopCoroutine(soundCoroutine);
+            soundCoroutine = null;
+        }
+
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+        }
+    }
+
+    IEnumerator CheckMoveSound()
+    {
+        audioSource.clip = slowSE;
+        audioSource.loop = true;
+
+        while (currentPlayer != null)
+        {
+            if (currentPlayer.GetMoveInput() != Vector2.zero)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+            }
+            else
+            {
+                if (audioSource.isPlaying)
+                {
+                    audioSource.Stop();
+                }
+            }
+
+            yield return null;
         }
     }
 }

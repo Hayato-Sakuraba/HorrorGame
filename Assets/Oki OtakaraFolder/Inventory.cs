@@ -17,12 +17,20 @@ public class Inventory : MonoBehaviour
     //枠UI
     public TextMeshProUGUI capacityText;
 
-    // デバッグ用お宝
+    //インベントリ表示UI
+    public InventoryUI inventoryUI;
+
+    //デバッグ用お宝
     public Otakara testItem;
 
     private void Start()
     {
         UpdateUI();
+
+        if (inventoryUI != null)
+        {
+            inventoryUI.RefreshUI();
+        }
 
         if (testItem != null)
         {
@@ -30,6 +38,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    //アイテム追加
     public bool AddItem(Otakara item)
     {
         if (currentSize + item.guram > maxSize)
@@ -43,10 +52,15 @@ public class Inventory : MonoBehaviour
 
         UpdateUI();
 
+        if (inventoryUI != null)
+        {
+            inventoryUI.RefreshUI();
+        }
+
         return true;
     }
 
-    // 合計計算
+    //合計金額
     public int GetTotalPrice()
     {
         int total = 0;
@@ -59,7 +73,7 @@ public class Inventory : MonoBehaviour
         return total;
     }
 
-    // クレジット変換
+    //換金
     public void ConvertToCredit()
     {
         int total = GetTotalPrice();
@@ -72,16 +86,20 @@ public class Inventory : MonoBehaviour
 
         creditManager.AddCredit(total);
 
-        // リセット
         items.Clear();
         currentSize = 0;
 
         UpdateUI();
 
-        Debug.Log("変換完了: " + total);
+        if (inventoryUI != null)
+        {
+            inventoryUI.RefreshUI();
+        }
+
+        Debug.Log("変換完了 : " + total);
     }
 
-    // ランダムなお宝破壊
+    //ランダム破壊
     public void DestroyRandomItem()
     {
         if (items.Count <= 0)
@@ -99,10 +117,15 @@ public class Inventory : MonoBehaviour
 
         UpdateUI();
 
-        Debug.Log(brokenItem.name + " が壊れた！");
+        if (inventoryUI != null)
+        {
+            inventoryUI.RefreshUI();
+        }
+
+        Debug.Log(brokenItem.itemName + " が壊れた！");
     }
 
-    
+    //容量表示更新
     void UpdateUI()
     {
         if (capacityText != null)
@@ -112,6 +135,22 @@ public class Inventory : MonoBehaviour
                 currentSize +
                 " / " +
                 maxSize;
+        }
+    }
+    public void RemoveItem(Otakara item)
+    {
+        if (!items.Contains(item))
+            return;
+
+        currentSize -= item.guram;
+
+        items.Remove(item);
+
+        UpdateUI();
+
+        if (inventoryUI != null)
+        {
+            inventoryUI.RefreshUI();
         }
     }
 }

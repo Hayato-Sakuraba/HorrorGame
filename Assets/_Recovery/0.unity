@@ -955,14 +955,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 933929860778369472, guid: a93421b76d82ce8449887724df942249, type: 3}
-      propertyPath: fallSE
-      value: 
-      objectReference: {fileID: 8300000, guid: 1a5ded26459027147ab1ef6755a4c517, type: 3}
-    - target: {fileID: 933929860778369472, guid: a93421b76d82ce8449887724df942249, type: 3}
-      propertyPath: crackSE
-      value: 
-      objectReference: {fileID: 8300000, guid: 7020b233c24090647947dc994b95f98f, type: 3}
-    - target: {fileID: 933929860778369472, guid: a93421b76d82ce8449887724df942249, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 163405538126292710}
@@ -1132,10 +1124,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 138436593599650052, guid: 57c8067e848d7a6469b9aa34cddacaa6, type: 3}
-      propertyPath: trapSE
-      value: 
-      objectReference: {fileID: 8300000, guid: 1a5ded26459027147ab1ef6755a4c517, type: 3}
     - target: {fileID: 138436593599650052, guid: 57c8067e848d7a6469b9aa34cddacaa6, type: 3}
       propertyPath: audioSource
       value: 
@@ -1307,10 +1295,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2891236554127769799, guid: e1214c9f3b0fb3c48b51cc656faf551e, type: 3}
-      propertyPath: alarmSE
-      value: 
-      objectReference: {fileID: 8300000, guid: 7e9e19b85db01344ba1a2b77a161a034, type: 3}
-    - target: {fileID: 2891236554127769799, guid: e1214c9f3b0fb3c48b51cc656faf551e, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 960303741646188574}
@@ -1390,7 +1374,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1498,7 +1482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7033890631405775557, guid: a6a9d2b03752ddc419e9508a467db6b9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.84
+      value: -2.7
       objectReference: {fileID: 0}
     - target: {fileID: 7033890631405775557, guid: a6a9d2b03752ddc419e9508a467db6b9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1527,14 +1511,6 @@ PrefabInstance:
     - target: {fileID: 7033890631405775557, guid: a6a9d2b03752ddc419e9508a467db6b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8990442168325349356, guid: a6a9d2b03752ddc419e9508a467db6b9, type: 3}
-      propertyPath: deathSE
-      value: 
-      objectReference: {fileID: 8300000, guid: 1a5ded26459027147ab1ef6755a4c517, type: 3}
-    - target: {fileID: 8990442168325349356, guid: a6a9d2b03752ddc419e9508a467db6b9, type: 3}
-      propertyPath: FallingSE
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8990442168325349356, guid: a6a9d2b03752ddc419e9508a467db6b9, type: 3}
       propertyPath: audioSource
@@ -1662,10 +1638,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1637103029459503830, guid: 9380dac28df083040bc7d9af69a5125a, type: 3}
-      propertyPath: ParalysisSE
-      value: 
-      objectReference: {fileID: 8300000, guid: 707d2ffc658ee27488c42dfcf37bd067, type: 3}
     - target: {fileID: 1637103029459503830, guid: 9380dac28df083040bc7d9af69a5125a, type: 3}
       propertyPath: audioSource
       value: 
@@ -1902,24 +1874,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2032967449}
     - target: {fileID: 2998265314946825747, guid: 869388cbf65520741a5a0323507a971f, type: 3}
-      propertyPath: ContaminationSE
-      value: 
-      objectReference: {fileID: 8300000, guid: 1fa084032c3623e488f0fad8b123a196, type: 3}
-    - target: {fileID: 2998265314946825747, guid: 869388cbf65520741a5a0323507a971f, type: 3}
       propertyPath: areaAudioSource
       value: 
       objectReference: {fileID: 2032967443}
     - target: {fileID: 6433656328350930905, guid: 869388cbf65520741a5a0323507a971f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.31
+      value: 28.03
       objectReference: {fileID: 0}
     - target: {fileID: 6433656328350930905, guid: 869388cbf65520741a5a0323507a971f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.89
+      value: 5.24341
       objectReference: {fileID: 0}
     - target: {fileID: 6433656328350930905, guid: 869388cbf65520741a5a0323507a971f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.78
+      value: -13.14
       objectReference: {fileID: 0}
     - target: {fileID: 6433656328350930905, guid: 869388cbf65520741a5a0323507a971f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2016,10 +1984,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3551164983045508819, guid: 2c8f66fc84827a84d93ea489e034e05b, type: 3}
-      propertyPath: damejiSE
-      value: 
-      objectReference: {fileID: 8300000, guid: 4cf86111ef098544dae9b6bb16bb51b2, type: 3}
     - target: {fileID: 3551164983045508819, guid: 2c8f66fc84827a84d93ea489e034e05b, type: 3}
       propertyPath: audioSource
       value: 
@@ -2165,10 +2129,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 219498892087654847, guid: b99dd0ab85087894c99b1c3891f10618, type: 3}
-      propertyPath: slowSE
-      value: 
-      objectReference: {fileID: 8300000, guid: 16d708c7ec7898f4ebe397b0fb8aa240, type: 3}
     - target: {fileID: 219498892087654847, guid: b99dd0ab85087894c99b1c3891f10618, type: 3}
       propertyPath: audioSource
       value: 
