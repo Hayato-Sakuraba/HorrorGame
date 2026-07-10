@@ -32,6 +32,7 @@ public class PitfallTrap : MonoBehaviour, TrapInterface
 
         PlaySE(fallSE);
 
+        CameraShake.Instance.Shake(0.5f, 0.2f);
         DebugMove move =
             player.GetComponent<DebugMove>();
 

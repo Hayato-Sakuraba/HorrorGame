@@ -4,65 +4,72 @@ using UnityEngine;
 public class Radioactivity : MonoBehaviour, TrapInterface
 {
     [Header("ê›íË")]
-    public int damage = 5;
-    public float interval = 1f;
+    public float deathTime = 20f;
 
     [Header("å¯â âπ")]
-    public AudioSource audioSource;
-    public AudioClip damejiSE;
+    public AudioSource areaAudioSource;
+    public AudioSource seAudioSource;
 
-    private Coroutine damageCoroutine;
+    public AudioClip radiationLoopSE;
+    public AudioClip deathSE;
+
+    private Coroutine deathCoroutine;
 
     public void ActiveTrap(GameObject player)
     {
-        if (damageCoroutine == null)
+        if (areaAudioSource != null &&
+            radiationLoopSE != null &&
+            !areaAudioSource.isPlaying)
         {
-            damageCoroutine =
-                StartCoroutine(
-                    DamageLoop(player)
-                );
+            areaAudioSource.clip = radiationLoopSE;
+            areaAudioSource.loop = true;
+            areaAudioSource.Play();
         }
+
+        if (deathCoroutine == null)
+        {
+            deathCoroutine =
+                StartCoroutine(DeathTimer(player));
+        }
+        RadiationEffect.Instance.StartRadiation(deathTime);
     }
 
     public void UnActiveTrap()
     {
-        if (damageCoroutine != null)
+        if (deathCoroutine != null)
         {
-            StopCoroutine(damageCoroutine);
-            damageCoroutine = null;
+            StopCoroutine(deathCoroutine);
+            deathCoroutine = null;
         }
 
-        if (audioSource != null)
+        // ä¬ã´âπí‚é~
+        if (areaAudioSource != null)
         {
-            audioSource.Stop();
+            areaAudioSource.Stop();
         }
-
+        RadiationEffect.Instance.StopRadiation();
     }
 
-    IEnumerator DamageLoop(GameObject target)
+    IEnumerator DeathTimer(GameObject player)
     {
-        PlayerHealth health =
-            target.GetComponent<PlayerHealth>();
+        yield return new WaitForSeconds(deathTime);
 
-        while (true)
+        // ä¬ã´âπí‚é~
+        if (areaAudioSource != null)
         {
-            if (health != null)
-            {
-                health.TakeDamage(damage);
-
-                if (audioSource != null &&
-                    damejiSE != null)
-                {
-                    audioSource.PlayOneShot(damejiSE);
-                }
-
-                Debug.Log(
-                    "ï˙éÀê¸É_ÉÅÅ[ÉW : " +
-                    damage
-                );
-            }
-
-            yield return new WaitForSeconds(interval);
+            areaAudioSource.Stop();
         }
+
+        // éÄñSSE
+        if (seAudioSource != null &&
+            deathSE != null)
+        {
+            seAudioSource.PlayOneShot(deathSE);
+        }
+
+        Debug.Log("ï˙éÀê¸Ç≈éÄñS");
+
+        deathCoroutine = null;
+        RadiationEffect.Instance.StopRadiation();
     }
 }

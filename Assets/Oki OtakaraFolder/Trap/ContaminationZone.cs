@@ -4,8 +4,8 @@ using UnityEngine;
 public class ContaminationZone : MonoBehaviour, TrapInterface
 {
     [Header("Audio")]
-    public AudioSource areaAudioSource; // エリアループ音
-    public AudioSource seAudioSource;   // 効果音
+    public AudioSource areaAudioSource;
+    public AudioSource seAudioSource;
 
     public AudioClip ContaminationSE; // 汚染エリア音
     public AudioClip valueDownSE;     // 価値減少音
@@ -16,7 +16,9 @@ public class ContaminationZone : MonoBehaviour, TrapInterface
 
     private Coroutine contaminationCoroutine;
 
+    private bool overlayPlaying = false;
 
+    public ContaminationOverlay contaminationOverlay;
 
     public void UnActiveTrap()
     {
@@ -26,9 +28,16 @@ public class ContaminationZone : MonoBehaviour, TrapInterface
             contaminationCoroutine = null;
         }
 
+        overlayPlaying = false;
+
         if (areaAudioSource != null)
         {
             areaAudioSource.Stop();
+        }
+
+        if (contaminationOverlay != null)
+        {
+            contaminationOverlay.ResetOverlay();
         }
 
         Debug.Log("汚染終了");
@@ -57,10 +66,15 @@ public class ContaminationZone : MonoBehaviour, TrapInterface
             areaAudioSource.loop = true;
             areaAudioSource.Play();
         }
+        if (contaminationOverlay != null && !overlayPlaying)
+        {
+            overlayPlaying = true;
+            StartCoroutine(FadeOverlay());
+        }
     }
 
 
-    
+
 
     IEnumerator Contaminate(Inventory inventory)
     {
@@ -110,6 +124,28 @@ public class ContaminationZone : MonoBehaviour, TrapInterface
                     " は汚染で崩壊した！"
                 );
             }
+        }
+    }
+    IEnumerator FadeOverlay()
+    {
+        float timer = 0f;
+        float fadeTime = 2f;
+
+        while (timer < fadeTime)
+        {
+            timer += Time.deltaTime;
+
+            if (contaminationOverlay != null)
+            {
+                contaminationOverlay.SetProgress(timer / fadeTime);
+            }
+
+            yield return null;
+        }
+
+        if (contaminationOverlay != null)
+        {
+            contaminationOverlay.SetProgress(1f);
         }
     }
 }

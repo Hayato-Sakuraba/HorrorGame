@@ -1929,7 +1929,7 @@ PrefabInstance:
     - target: {fileID: 5541688173779113152, guid: ee8090f8f03865148962d09e92f826b5, type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1421151209}
     - target: {fileID: 5541688173779113152, guid: ee8090f8f03865148962d09e92f826b5, type: 3}
       propertyPath: popupManager
       value: 

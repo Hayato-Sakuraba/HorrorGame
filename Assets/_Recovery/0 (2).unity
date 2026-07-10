@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 11448460}
   - component: {fileID: 11448459}
   m_Layer: 5
-  m_Name: Image
+  m_Name: RadiationPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +145,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11448457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 619}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 0}
+  m_Color: {r: 0, g: 1, b: 0, a: 0.39215687}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -693,81 +693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd5c1d0e1b32a824dbc9c63d85b4395c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraShake
---- !u!1 &1394371105
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1394371106}
-  - component: {fileID: 1394371108}
-  - component: {fileID: 1394371107}
-  m_Layer: 5
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1394371106
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1394371105}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 568}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1838632206}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1394371107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1394371105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.6652843, g: 0.690566, b: 0, a: 0}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1394371108
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1394371105}
-  m_CullTransparentMesh: 1
 --- !u!1 &1419853519 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4194793109969393264, guid: 2c8f66fc84827a84d93ea489e034e05b, type: 3}
@@ -1177,7 +1102,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 11448458}
-  - {fileID: 1394371106}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.056}
   m_AnchorMin: {x: 0, y: 0}
@@ -1384,20 +1308,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2032967455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2032967442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 420052cbd7ebc5d468442f8ff6a78f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ContaminationOverlay
-  overlayImage: {fileID: 1394371107}
-  maxAlpha: 0.25
 --- !u!1 &2066401926 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1167408056217360576, guid: a0d719a2aa4ecdb4a94fec1e5830b0ec, type: 3}
@@ -2390,10 +2300,6 @@ PrefabInstance:
       propertyPath: areaAudioSource
       value: 
       objectReference: {fileID: 2032967443}
-    - target: {fileID: 2998265314946825747, guid: 869388cbf65520741a5a0323507a971f, type: 3}
-      propertyPath: contaminationOverlay
-      value: 
-      objectReference: {fileID: 2032967455}
     - target: {fileID: 6433656328350930905, guid: 869388cbf65520741a5a0323507a971f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.31
@@ -2446,9 +2352,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7366859235360152110, guid: 869388cbf65520741a5a0323507a971f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2032967455}
     - targetCorrespondingSourceObject: {fileID: 7366859235360152110, guid: 869388cbf65520741a5a0323507a971f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2032967443}
@@ -2546,13 +2449,13 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4194793109969393264, guid: 2c8f66fc84827a84d93ea489e034e05b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1419853532}
-    - targetCorrespondingSourceObject: {fileID: 4194793109969393264, guid: 2c8f66fc84827a84d93ea489e034e05b, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1419853520}
     - targetCorrespondingSourceObject: {fileID: 4194793109969393264, guid: 2c8f66fc84827a84d93ea489e034e05b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1419853526}
+    - targetCorrespondingSourceObject: {fileID: 4194793109969393264, guid: 2c8f66fc84827a84d93ea489e034e05b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1419853532}
   m_SourcePrefab: {fileID: 100100000, guid: 2c8f66fc84827a84d93ea489e034e05b, type: 3}
 --- !u!1001 &5955428356524357564
 PrefabInstance:

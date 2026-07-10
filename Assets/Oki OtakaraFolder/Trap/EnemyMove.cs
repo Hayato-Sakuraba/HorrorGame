@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+//マップギミックデバック用
 public class EnemyMove : MonoBehaviour
 {
     public float speed = 3f;
