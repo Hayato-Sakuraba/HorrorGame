@@ -1,3 +1,4 @@
+//使わない
 using UnityEngine;
 
 public class CameraFollowXZ : MonoBehaviour

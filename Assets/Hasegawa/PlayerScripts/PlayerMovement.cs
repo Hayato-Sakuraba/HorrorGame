@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float staminaConsumption = 30f;
 
     private float currentStamina;
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     private Vector2 moveInput;
     public Vector2 MoveInput => moveInput;
     private bool isDead = false;
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         currentStamina = maxStamina;
     }
 
